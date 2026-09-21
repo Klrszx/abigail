@@ -1,566 +1,463 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Una Flor para Abigail - 21 de Septiembre</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Margarita Amarilla - 21 de Septiembre</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-<!-- FUENTES GÓTICAS Y ROMÁNTICAS -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+        body {
+            background-color: #0b0b12;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
 
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
+        /* VISTAS/SECCIONES */
+        .screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
 
-/* FONDO MÍSTICO ANIMADO */
-body {
-    background: radial-gradient(circle at 50% 50%, #1a0814 0%, #0a0408 60%, #030104 100%);
-    color: #e0d0cc;
-    font-family: 'Playfair Display', serif;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
-    position: relative;
-}
+        .screen.active {
+            display: flex;
+        }
 
-body::before {
-    content: "";
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(128, 0, 32, 0.15) 0%, rgba(212, 175, 55, 0.05) 35%, transparent 70%);
-    animation: nebulaRotate 35s linear infinite;
-    pointer-events: none;
-    z-index: 0;
-}
+        /* CONTENEDOR PRINCIPAL DE LA FLOR */
+        .flower-box {
+            width: 320px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 234, 167, 0.05) 0%, rgba(15, 15, 25, 0.8) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            position: relative;
+            overflow: hidden;
+        }
 
-@keyframes nebulaRotate {
-    0% { transform: rotate(0deg) scale(1); }
-    50% { transform: rotate(180deg) scale(1.15); }
-    100% { transform: rotate(360deg) scale(1); }
-}
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
 
-/* CONTENEDOR PRINCIPAL */
-.window {
-    display: none;
-    width: 100%;
-    max-width: 480px;
-    min-height: 92vh;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 25px 20px;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 10;
-}
+        /* ================= TRANSICIONES Y ANIMACIONES ================= */
+        
+        /* Tierra y Brote bajo */
+        .part-tierra, .part-brote {
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: 150px 340px;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-.window.active {
-    display: flex;
-}
+        /* Tallo crece suavemente */
+        .part-tallo {
+            stroke-dasharray: 240;
+            stroke-dashoffset: 240;
+            transition: stroke-dashoffset 1.2s ease-in-out;
+        }
 
-/* MARCO Y CAJA DE LA FLOR */
-.flower-box {
-    width: 320px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(255, 234, 167, 0.05) 0%, rgba(15, 15, 25, 0.8) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    position: relative;
-    overflow: hidden;
-}
+        /* Hojas con movimiento propio */
+        .part-hoja-izq {
+            opacity: 0;
+            transform: scale(0) rotate(-30deg);
+            transform-origin: 146px 250px;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-}
+        .part-hoja-der {
+            opacity: 0;
+            transform: scale(0) rotate(30deg);
+            transform-origin: 154px 210px;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
 
-/* ================= TRANSICIONES Y ANIMACIONES ================= */
+        /* Capullo posicionado a la altura justa */
+        .part-capullo {
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: 150px 180px;
+            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-/* Tierra y Brote bajo */
-.part-tierra, .part-brote {
-    opacity: 0;
-    transform: scale(0);
-    transform-origin: 150px 340px;
-    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        /* Margarita Amarilla completa */
+        .part-petalos, .part-centro, .part-brillo {
+            opacity: 0;
+            transform: scale(0);
+            transform-origin: 150px 110px;
+            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
 
-/* Tallo crece suavemente */
-.part-tallo {
-    stroke-dasharray: 240;
-    stroke-dashoffset: 240;
-    transition: stroke-dashoffset 1.2s ease-in-out;
-}
+        /* ================= ETAPAS DE ACTIVACIÓN ================= */
+        
+        /* Etapa 0: Germinación en la tierra */
+        .stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
 
-/* Hojas con movimiento propio */
-.part-hoja-izq {
-    opacity: 0;
-    transform: scale(0) rotate(-30deg);
-    transform-origin: 146px 250px;
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        /* Etapa 1: Crece Tallo */
+        .stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-1 .part-tallo { stroke-dashoffset: 0; }
 
-.part-hoja-der {
-    opacity: 0;
-    transform: scale(0) rotate(30deg);
-    transform-origin: 154px 210px;
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        /* Etapa 2: Brotan Hojas Realistas */
+        .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-2 .part-tallo { stroke-dashoffset: 0; }
+        .stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 
-/* Capullo posicionado a la altura justa */
-.part-capullo {
-    opacity: 0;
-    transform: scale(0);
-    transform-origin: 150px 180px;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+        /* Etapa 3: Nace Capullo en posición media */
+        .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-3 .part-tallo { stroke-dashoffset: 70; }
+        .stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-3 .part-capullo { opacity: 1; transform: scale(1); }
 
-/* Margarita Amarilla completa */
-.part-petalos, .part-centro, .part-brillo {
-    opacity: 0;
-    transform: scale(0);
-    transform-origin: 150px 110px;
-    transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
+        /* Etapa 4 y 5: Margarita Abierta en la cima */
+        .stage-4 .part-tierra, .stage-4 .part-brote,
+        .stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
+        .stage-4 .part-hoja-izq, .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-4 .part-hoja-der, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-4 .part-capullo, .stage-5 .part-capullo { opacity: 0; transform: scale(0); }
+        .stage-4 .part-petalos, .stage-4 .part-centro,
+        .stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
+        .stage-5 .part-brillo { opacity: 0.6; transform: scale(1.2); }
 
-/* ================= ETAPAS DE ACTIVACIÓN ================= */
+        /* ================= MOVIMIENTO Y REALISMO EN ETAPA 5 ================= */
+        
+        @keyframes windSway {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg) translateY(-1px); }
+            50% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg) translateY(1px); }
+            100% { transform: rotate(0deg); }
+        }
 
-.stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
+        @keyframes leafSwayLeft {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(-6deg); }
+        }
 
-.stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
-.stage-1 .part-tallo { stroke-dashoffset: 0; }
+        @keyframes leafSwayRight {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(6deg); }
+        }
 
-.stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
-.stage-2 .part-tallo { stroke-dashoffset: 0; }
-.stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.4; transform: scale(1.1); }
+            50% { opacity: 0.8; transform: scale(1.35); }
+        }
 
-.stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
-.stage-3 .part-tallo { stroke-dashoffset: 70; }
-.stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-3 .part-capullo { opacity: 1; transform: scale(1); }
+        .stage-5 .flower-skeleton {
+            animation: windSway 4.5s ease-in-out infinite;
+            transform-origin: 150px 340px;
+        }
 
-.stage-4 .part-tierra, .stage-4 .part-brote,
-.stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
-.stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
-.stage-4 .part-hoja-izq, .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-4 .part-hoja-der, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-4 .part-capullo, .stage-5 .part-capullo { opacity: 0; transform: scale(0); }
-.stage-4 .part-petalos, .stage-4 .part-centro,
-.stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
-.stage-5 .part-brillo { opacity: 0.6; transform: scale(1.2); }
+        .stage-5 .part-hoja-izq {
+            animation: leafSwayLeft 3.5s ease-in-out infinite;
+        }
 
-/* ================= MOVIMIENTO Y REALISMO EN ETAPA 5 ================= */
+        .stage-5 .part-hoja-der {
+            animation: leafSwayRight 4s ease-in-out infinite;
+        }
 
-@keyframes windSway {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(3deg) translateY(-1px); }
-    50% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg) translateY(1px); }
-    100% { transform: rotate(0deg); }
-}
+        .stage-5 .part-brillo {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
 
-@keyframes leafSwayLeft {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-6deg); }
-}
+        /* TARJETA DE TRIVIA Y CONTROLES */
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
 
-@keyframes leafSwayRight {
-    0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(6deg); }
-}
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #ffeaa7;
+        }
 
-@keyframes pulseGlow {
-    0%, 100% { opacity: 0.4; transform: scale(1.1); }
-    50% { opacity: 0.8; transform: scale(1.35); }
-}
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            color: #fff;
+            font-size: 1rem;
+            text-align: center;
+            outline: none;
+            margin-bottom: 12px;
+        }
 
-.stage-5 .flower-skeleton {
-    animation: windSway 4.5s ease-in-out infinite;
-    transform-origin: 150px 340px;
-}
+        input[type="text"]:focus {
+            border-color: #f1c40f;
+        }
 
-.stage-5 .part-hoja-izq {
-    animation: leafSwayLeft 3.5s ease-in-out infinite;
-}
+        button {
+            background: #f1c40f;
+            color: #2c3e50;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
 
-.stage-5 .part-hoja-der {
-    animation: leafSwayRight 4s ease-in-out infinite;
-}
+        button:hover {
+            background: #f39c12;
+            color: white;
+            transform: scale(1.05);
+        }
 
-.stage-5 .part-brillo {
-    animation: pulseGlow 3s ease-in-out infinite;
-}
+        .feedback {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
 
-/* TARJETA DE CONTENIDO */
-.card {
-    background: rgba(18, 8, 14, 0.75);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    border-radius: 16px;
-    padding: 22px 18px;
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.9), inset 0 0 20px rgba(128, 0, 32, 0.2);
-    margin: 15px 0;
-}
+        .btn-next {
+            background: #2ecc71;
+            color: white;
+            margin-top: 10px;
+            display: none;
+        }
 
-.card h2 {
-    font-family: 'Cinzel', serif;
-    color: #f1c40f;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    font-size: 1.3rem;
-    text-shadow: 0 0 10px rgba(241, 196, 15, 0.3);
-}
-
-.question-img {
-    width: 100%;
-    max-height: 180px;
-    object-fit: cover;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    filter: sepia(20%) contrast(105%);
-}
-
-.question-text {
-    font-size: 1.1rem;
-    margin-bottom: 15px;
-    line-height: 1.5;
-    color: #f5e6e8;
-    font-style: italic;
-}
-
-/* INPUT Y BOTONES */
-.answer-input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    background: rgba(5, 2, 5, 0.8);
-    color: #fff;
-    font-family: 'Playfair Display', serif;
-    font-size: 1rem;
-    text-align: center;
-    outline: none;
-    margin-bottom: 12px;
-    transition: border-color 0.3s;
-}
-
-.answer-input:focus {
-    border-color: #f1c40f;
-    box-shadow: 0 0 8px rgba(241, 196, 15, 0.3);
-}
-
-.btn {
-    background: linear-gradient(135deg, #800020 0%, #4a0013 100%);
-    color: #fce4ec;
-    border: 1px solid rgba(212, 175, 55, 0.4);
-    padding: 12px 28px;
-    border-radius: 25px;
-    font-family: 'Cinzel', serif;
-    font-size: 0.95rem;
-    letter-spacing: 1.5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-}
-
-.btn:hover {
-    background: linear-gradient(135deg, #b33939 0%, #800020 100%);
-    border-color: #f1c40f;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(128, 0, 32, 0.6);
-}
-
-.btn-next {
-    background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
-    color: #1a0814;
-    font-weight: bold;
-    display: none;
-    margin-top: 10px;
-}
-
-.btn-next:hover {
-    background: linear-gradient(135deg, #f1c40f 0%, #d4af37 100%);
-}
-
-.feedback-msg {
-    font-size: 0.95rem;
-    margin-top: 10px;
-    min-height: 22px;
-    font-style: italic;
-}
-
-#win1 {
-    justify-content: center;
-    text-align: center;
-}
-
-#win1 h1 {
-    font-family: 'Cinzel', serif;
-    font-size: 2.3rem;
-    margin-bottom: 15px;
-    color: #f1c40f;
-    letter-spacing: 3px;
-    text-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
-}
-
-#win1 p {
-    font-size: 1.15rem;
-    color: #d0c0c5;
-    margin-bottom: 35px;
-    line-height: 1.6;
-}
-</style>
+        .btn-next:hover {
+            background: #27ae60;
+        }
+    </style>
 </head>
 <body>
 
-<!-- PLANTILLA TEMPLATE PARA EL SVG DE LA FLOR -->
-<svg style="display:none;">
-    <defs>
-        <!-- DEGRADADOS REALISTAS -->
-        <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stop-color="#27ae60"/>
-            <stop offset="50%" stop-color="#2ecc71"/>
-            <stop offset="100%" stop-color="#1e8449"/>
-        </linearGradient>
+    <!-- TEMPLATE DEL SVG DE LA FLOR PARA REUTILIZAR EXACTAMENTE IGUAL -->
+    <template id="flower-svg-template">
+        <svg viewBox="0 0 300 400">
+            <defs>
+                <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stop-color="#27ae60"/>
+                    <stop offset="50%" stop-color="#2ecc71"/>
+                    <stop offset="100%" stop-color="#1e8449"/>
+                </linearGradient>
 
-        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stop-color="#52be80"/>
-            <stop offset="60%" stop-color="#27ae60"/>
-            <stop offset="100%" stop-color="#196f3d"/>
-        </linearGradient>
+                <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#52be80"/>
+                    <stop offset="60%" stop-color="#27ae60"/>
+                    <stop offset="100%" stop-color="#196f3d"/>
+                </linearGradient>
 
-        <!-- MARGARITA AMARILLA: DEGRADADO DE PÉTALOS -->
-        <radialGradient id="yellowPetal" cx="50%" cy="100%" r="100%">
-            <stop offset="0%" stop-color="#f39c12" />
-            <stop offset="35%" stop-color="#f1c40f" />
-            <stop offset="85%" stop-color="#fffa65" />
-            <stop offset="100%" stop-color="#ffffff" />
-        </radialGradient>
+                <radialGradient id="yellowPetal" cx="50%" cy="100%" r="100%">
+                    <stop offset="0%" stop-color="#f39c12" />
+                    <stop offset="35%" stop-color="#f1c40f" />
+                    <stop offset="85%" stop-color="#fffa65" />
+                    <stop offset="100%" stop-color="#ffffff" />
+                </radialGradient>
 
-        <!-- CENTRO CAFE/NARANJA DE MARGARITA -->
-        <radialGradient id="centerMargarita" cx="40%" cy="40%" r="60%">
-            <stop offset="0%" stop-color="#e67e22" />
-            <stop offset="50%" stop-color="#d35400" />
-            <stop offset="85%" stop-color="#7e2a0c" />
-            <stop offset="100%" stop-color="#4e1a07" />
-        </radialGradient>
+                <radialGradient id="centerMargarita" cx="40%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#e67e22" />
+                    <stop offset="50%" stop-color="#d35400" />
+                    <stop offset="85%" stop-color="#7e2a0c" />
+                    <stop offset="100%" stop-color="#4e1a07" />
+                </radialGradient>
 
-        <!-- BRILLO AMARILLO 21 DE SEPTIEMBRE -->
-        <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.9"/>
-            <stop offset="50%" stop-color="#fdcb6e" stop-opacity="0.4"/>
-            <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
-        </radialGradient>
-    </defs>
-</svg>
+                <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.9"/>
+                    <stop offset="50%" stop-color="#fdcb6e" stop-opacity="0.4"/>
+                    <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
+                </radialGradient>
+            </defs>
 
-<g id="flower-svg-template" style="display:none;">
-    <g class="flower-skeleton">
-        <!-- TIERRA Y MACETA -->
-        <g class="part-tierra">
-            <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#34495e"/>
-            <ellipse cx="150" cy="340" rx="60" ry="12" fill="#2c3e50"/>
-            <ellipse cx="150" cy="340" rx="54" ry="9" fill="#1a252f"/>
-        </g>
-        
-        <!-- BROTE EN LA TIERRA (GERMINACIÓN) -->
-        <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
+            <g class="flower-skeleton">
+                <g class="part-tierra">
+                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#34495e"/>
+                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#2c3e50"/>
+                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#1a252f"/>
+                </g>
+                
+                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
 
-        <!-- TALLO ORGANICO CURVO -->
-        <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
 
-        <!-- HOJA IZQUIERDA CON REALISMO -->
-        <g class="part-hoja-izq">
-            <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-            <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-        </g>
+                <g class="part-hoja-izq">
+                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
+                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+                </g>
 
-        <!-- HOJA DERECHA CON REALISMO -->
-        <g class="part-hoja-der">
-            <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-            <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-        </g>
+                <g class="part-hoja-der">
+                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
+                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+                </g>
 
-        <!-- CAPULLO DE ENTORNO MEDIO -->
-        <g class="part-capullo">
-            <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-            <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-            <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-        </g>
+                <g class="part-capullo">
+                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
+                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
+                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
+                </g>
 
-        <!-- RESPLANDOR / BRILLO AMARILLO -->
-        <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
+                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
 
-        <!-- PÉTALOS DE MARGARITA AMARILLA -->
-        <g class="part-petalos">
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-        </g>
+                <g class="part-petalos">
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
+                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
+                </g>
 
-        <!-- CENTRO TEXTURIZADO -->
-        <g class="part-centro">
-            <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-            <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-        </g>
-    </g>
-</g>
+                <g class="part-centro">
+                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
+                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
+                </g>
+            </g>
+        </svg>
+    </template>
 
-<!-- VENTANA 1: BIENVENIDA -->
-<div class="window active" id="win1">
-    <h1>Para Abigail ❤️</h1>
-    <p>Responde cada acertijo para hacer florecer esta margarita dorada guardada para ti.</p>
-    <button class="btn" onclick="goToWindow(2)">COMENZAR</button>
-</div>
-
-<!-- VENTANA 2: PREGUNTA 1 (GERMINA Y TALLO) -->
-<div class="window" id="win2">
-    <div class="flower-box stage-1" id="box-win2">
-        <svg viewBox="0 0 300 400"></svg>
+    <!-- INICIO -->
+    <div class="screen active" id="screen-0">
+        <h1 style="color: #ffeaa7;">21 de Septiembre 🌼</h1>
+        <p style="text-align: center; color: #ccc;">Responde a los acertijos para hacer florecer la margarita.</p>
+        <button onclick="goToScreen(1)">Comenzar</button>
     </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" class="question-img" alt="Imagen 1">
-        <div class="question-text" id="pregunta1-display">Cargando pregunta...</div>
-        <input type="text" id="ans1" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(1, 'v2-next', 'box-win2', 1)">Comprobar</button>
-        <div id="feedback1" class="feedback-msg"></div>
-        <button id="v2-next" class="btn btn-next" onclick="goToWindow(3)">Siguiente ➔</button>
+
+    <!-- PREGUNTA 1 (ETAPA 1: TALLO) -->
+    <div class="screen" id="screen-1">
+        <div class="flower-box stage-0" id="box-1"></div>
+        <div class="card">
+            <h2 id="p1-text"></h2>
+            <input type="text" id="ans-1" placeholder="Escribe tu respuesta...">
+            <button onclick="checkAnswer(1, 1)">Verificar</button>
+            <div class="feedback" id="fb-1"></div>
+            <button class="btn-next" id="next-1" onclick="goToScreen(2)">Siguiente ➔</button>
+        </div>
     </div>
-</div>
 
-<!-- VENTANA 3: PREGUNTA 2 (HOJAS) -->
-<div class="window" id="win3">
-    <div class="flower-box stage-2" id="box-win3">
-        <svg viewBox="0 0 300 400"></svg>
+    <!-- PREGUNTA 2 (ETAPA 2: HOJAS) -->
+    <div class="screen" id="screen-2">
+        <div class="flower-box stage-1" id="box-2"></div>
+        <div class="card">
+            <h2 id="p2-text"></h2>
+            <input type="text" id="ans-2" placeholder="Escribe tu respuesta...">
+            <button onclick="checkAnswer(2, 2)">Verificar</button>
+            <div class="feedback" id="fb-2"></div>
+            <button class="btn-next" id="next-2" onclick="goToScreen(3)">Siguiente ➔</button>
+        </div>
     </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" class="question-img" alt="Imagen 2">
-        <div class="question-text" id="pregunta2-display">Cargando pregunta...</div>
-        <input type="text" id="ans2" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(2, 'v3-next', 'box-win3', 2)">Comprobar</button>
-        <div id="feedback2" class="feedback-msg"></div>
-        <button id="v3-next" class="btn btn-next" onclick="goToWindow(4)">Siguiente ➔</button>
+
+    <!-- PREGUNTA 3 (ETAPA 3: CAPULLO) -->
+    <div class="screen" id="screen-3">
+        <div class="flower-box stage-2" id="box-3"></div>
+        <div class="card">
+            <h2 id="p3-text"></h2>
+            <input type="text" id="ans-3" placeholder="Escribe tu respuesta...">
+            <button onclick="checkAnswer(3, 3)">Verificar</button>
+            <div class="feedback" id="fb-3"></div>
+            <button class="btn-next" id="next-3" onclick="goToScreen(4)">Siguiente ➔</button>
+        </div>
     </div>
-</div>
 
-<!-- VENTANA 4: PREGUNTA 3 (CAPULLO MEDIO) -->
-<div class="window" id="win4">
-    <div class="flower-box stage-3" id="box-win4">
-        <svg viewBox="0 0 300 400"></svg>
+    <!-- PREGUNTA 4 (ETAPA 5: FLOR COMPLETA EN MOVIMIENTO) -->
+    <div class="screen" id="screen-4">
+        <div class="flower-box stage-3" id="box-4"></div>
+        <div class="card">
+            <h2 id="p4-text"></h2>
+            <input type="text" id="ans-4" placeholder="Escribe tu respuesta...">
+            <button onclick="checkAnswer(4, 5)">Verificar</button>
+            <div class="feedback" id="fb-4"></div>
+            <button class="btn-next" id="next-4" onclick="alert('¡Felicidades! La flor ha florecido completamente. ✨🌼')">¡Finalizar! ❤️</button>
+        </div>
     </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500" class="question-img" alt="Imagen 3">
-        <div class="question-text" id="pregunta3-display">Cargando pregunta...</div>
-        <input type="text" id="ans3" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(3, 'v4-next', 'box-win4', 3)">Comprobar</button>
-        <div id="feedback3" class="feedback-msg"></div>
-        <button id="v4-next" class="btn btn-next" onclick="goToWindow(5)">Siguiente ➔</button>
-    </div>
-</div>
 
-<!-- VENTANA 5: PREGUNTA 4 (FLORECIMIENTO / ETAPA 5) -->
-<div class="window" id="win5">
-    <div class="flower-box stage-5" id="box-win5">
-        <svg viewBox="0 0 300 400"></svg>
-    </div>
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" class="question-img" alt="Imagen 4">
-        <div class="question-text" id="pregunta4-display">Cargando pregunta...</div>
-        <input type="text" id="ans4" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(4, 'v5-next', 'box-win5', 5)">Comprobar</button>
-        <div id="feedback4" class="feedback-msg"></div>
-        <button id="v5-next" class="btn btn-next" onclick="alert('¡Has completado el camino de la flor para Abigail! ❤️')">Finalizar ❤️</button>
-    </div>
-</div>
+    <script>
+        // CONFIGURACIÓN DE PREGUNTAS Y RESPUESTAS
+        const quizData = {
+            pregunta1: "¿Cuál es tu lugar favorito?",
+            respuesta1: "parque",
 
-<script>
-// ==========================================
-// CONFIGURACIÓN DE PREGUNTAS Y RESPUESTAS
-// ==========================================
-const config = {
-    pregunta1: "¿Cuál es nuestro lugar especial favorito?",
-    respuesta1: "parque",
+            pregunta2: "¿Cuál es tu color favorito?",
+            respuesta2: "amarillo",
 
-    pregunta2: "¿Qué canción siempre nos recuerda uno al otro?",
-    respuesta2: "musica",
+            pregunta3: "¿En qué mes estamos?",
+            respuesta3: "septiembre",
 
-    pregunta3: "¿En qué mes nos conocimos?",
-    respuesta3: "septiembre",
+            pregunta4: "¿Cuál es la palabra secreta?",
+            respuesta4: "amor"
+        };
 
-    pregunta4: "¿Cuál es la palabra secreta de nuestro amor?",
-    respuesta4: "siempre"
-};
+        // Inicializar el SVG dentro de los contenedores de flor
+        window.addEventListener('DOMContentLoaded', () => {
+            const template = document.getElementById('flower-svg-template').content;
+            
+            for (let i = 1; i <= 4; i++) {
+                const box = document.getElementById(`box-${i}`);
+                box.appendChild(template.cloneNode(true));
+                
+                // Cargar texto de pregunta
+                document.getElementById(`p${i}-text`).textContent = quizData[`pregunta${i}`];
+            }
+        });
 
-// Cargar preguntas en el HTML y duplicar plantilla del SVG
-window.addEventListener('DOMContentLoaded', () => {
-    // Asignar los textos de las preguntas desde la configuración
-    document.getElementById('pregunta1-display').textContent = config.pregunta1;
-    document.getElementById('pregunta2-display').textContent = config.pregunta2;
-    document.getElementById('pregunta3-display').textContent = config.pregunta3;
-    document.getElementById('pregunta4-display').textContent = config.pregunta4;
+        // Cambiar entre pantallas
+        function goToScreen(screenNumber) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`screen-${screenNumber}`).classList.add('active');
+        }
 
-    // Copiar la estructura del SVG
-    const template = document.getElementById('flower-svg-template').innerHTML;
-    document.querySelectorAll('.flower-box svg').forEach(svg => {
-        svg.innerHTML = template;
-    });
-});
+        // Evaluar la respuesta
+        function checkAnswer(step, nextStage) {
+            const userAns = document.getElementById(`ans-${step}`).value.trim().toLowerCase();
+            const correctAns = quizData[`respuesta${step}`].toLowerCase();
+            const feedback = document.getElementById(`fb-${step}`);
+            const nextBtn = document.getElementById(`next-${step}`);
+            const flowerBox = document.getElementById(`box-${step}`);
 
-function goToWindow(winNumber) {
-    document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-    document.getElementById('win' + winNumber).classList.add('active');
-}
-
-function checkAnswer(step, nextBtnId, boxId, nextStage) {
-    const input = document.getElementById('ans' + step);
-    const feedback = document.getElementById('feedback' + step);
-    const btnNext = document.getElementById(nextBtnId);
-    const flowerBox = document.getElementById(boxId);
-
-    const correctAnswer = config['respuesta' + step];
-
-    if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
-        feedback.style.color = "#2ecc71";
-        feedback.textContent = "¡Correcto! La margarita sigue floreciendo...";
-        btnNext.style.display = "inline-block";
-        
-        flowerBox.className = "flower-box stage-" + nextStage;
-    } else {
-        feedback.style.color = "#e74c3c";
-        feedback.textContent = "Inténtalo de nuevo, Abigail ❤️";
-    }
-}
-</script>
-
+            if (userAns === correctAns) {
+                feedback.style.color = "#2ecc71";
+                feedback.textContent = "¡Correcto! La flor sigue creciendo...";
+                nextBtn.style.display = "inline-block";
+                
+                // Aplicar el cambio de etapa a la flor
+                flowerBox.className = `flower-box stage-${nextStage}`;
+            } else {
+                feedback.style.color = "#e74c3c";
+                feedback.textContent = "Respuesta incorrecta, inténtalo de nuevo.";
+            }
+        }
+    </script>
 </body>
 </html>
