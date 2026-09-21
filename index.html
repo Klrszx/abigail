@@ -17,7 +17,7 @@
     padding: 0;
 }
 
-/* FONDO MÍSTICO ANIMADO CON NEBULOSA Y PARTÍCULAS */
+/* FONDO MÍSTICO ANIMADO */
 body {
     background: radial-gradient(circle at 50% 50%, #1a0814 0%, #0a0408 60%, #030104 100%);
     color: #e0d0cc;
@@ -30,7 +30,6 @@ body {
     position: relative;
 }
 
-/* Capa de fondo con animación de nebulosa */
 body::before {
     content: "";
     position: absolute;
@@ -48,7 +47,7 @@ body::before {
     100% { transform: rotate(360deg) scale(1); }
 }
 
-/* CONTENEDOR PRINCIPAL DE VENTANAS */
+/* CONTENEDOR PRINCIPAL */
 .window {
     display: none;
     width: 100%;
@@ -89,7 +88,7 @@ svg {
     overflow: visible;
 }
 
-/* TRANSICIONES SVG */
+/* TRANSICIONES SVG REVISADAS */
 .part-tierra, .part-brote {
     opacity: 0;
     transform: scale(0);
@@ -98,8 +97,8 @@ svg {
 }
 
 .part-tallo {
-    stroke-dasharray: 240;
-    stroke-dashoffset: 240;
+    stroke-dasharray: 260;
+    stroke-dashoffset: 260;
     transition: stroke-dashoffset 1.2s ease-in-out;
 }
 
@@ -120,7 +119,7 @@ svg {
 .part-capullo {
     opacity: 0;
     transform: scale(0);
-    transform-origin: 150px 180px;
+    transform-origin: 150px 110px;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -131,7 +130,7 @@ svg {
     transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ETAPAS DE CRECIMIENTO */
+/* ETAPAS DE CRECIMIENTO CORREGIDAS */
 .stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
 
 .stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
@@ -139,32 +138,32 @@ svg {
 
 .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
 .stage-2 .part-tallo { stroke-dashoffset: 0; }
-.stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-2 .part-hoja-izq, .stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 
 .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
-.stage-3 .part-tallo { stroke-dashoffset: 70; }
-.stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-3 .part-tallo { stroke-dashoffset: 0; }
+.stage-3 .part-hoja-izq, .stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 .stage-3 .part-capullo { opacity: 1; transform: scale(1); }
 
-.stage-4 .part-tierra, .stage-4 .part-brote,
-.stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
-.stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
-.stage-4 .part-hoja-izq, .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-4 .part-hoja-der, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-4 .part-capullo, .stage-5 .part-capullo { opacity: 0; transform: scale(0); }
-.stage-4 .part-petalos, .stage-4 .part-centro,
-.stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
-.stage-5 .part-brillo { opacity: 0.7; transform: scale(1.2); }
+.stage-4 .part-tierra, .stage-4 .part-brote { opacity: 1; transform: scale(1); }
+.stage-4 .part-tallo { stroke-dashoffset: 0; }
+.stage-4 .part-hoja-izq, .stage-4 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-4 .part-capullo { opacity: 0; transform: scale(0); }
+.stage-4 .part-petalos, .stage-4 .part-centro { opacity: 1; transform: scale(1); }
 
-/* ANIMACIONES FINALES DE VIENTO Y RESPLANDOR */
+.stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
+.stage-5 .part-tallo { stroke-dashoffset: 0; }
+.stage-5 .part-hoja-izq, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-5 .part-capullo { opacity: 0; transform: scale(0); }
+.stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
+.stage-5 .part-brillo { opacity: 0.8; transform: scale(1.2); }
+
+/* ANIMACIONES FINALES */
 @keyframes windSway {
-    0% { transform: rotate(0deg); }
+    0%, 100% { transform: rotate(0deg); }
     25% { transform: rotate(2.5deg) translateY(-1px); }
     50% { transform: rotate(-2deg); }
     75% { transform: rotate(1.8deg) translateY(1px); }
-    100% { transform: rotate(0deg); }
 }
 
 @keyframes leafSwayLeft {
@@ -179,7 +178,7 @@ svg {
 
 @keyframes pulseGlow {
     0%, 100% { opacity: 0.4; transform: scale(1.1); }
-    50% { opacity: 0.85; transform: scale(1.35); }
+    50% { opacity: 0.9; transform: scale(1.35); }
 }
 
 .stage-5 .flower-skeleton { animation: windSway 4.5s ease-in-out infinite; transform-origin: 150px 340px; }
@@ -187,7 +186,7 @@ svg {
 .stage-5 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
 .stage-5 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
 
-/* TARJETA DE CONTENIDO GÓTICA ROMÁNTICA */
+/* TARJETA DE CONTENIDO */
 .card {
     background: rgba(18, 8, 14, 0.75);
     backdrop-filter: blur(12px);
@@ -227,7 +226,7 @@ svg {
     font-style: italic;
 }
 
-/* INPUT Y BOTONES ESTILO ROMÁNTICO */
+/* INPUT Y BOTONES */
 .answer-input {
     width: 100%;
     padding: 12px;
@@ -274,6 +273,7 @@ svg {
     color: #1a0814;
     font-weight: bold;
     display: none;
+    margin-top: 10px;
 }
 
 .btn-next:hover {
@@ -287,7 +287,6 @@ svg {
     font-style: italic;
 }
 
-/* VENTANA 1 DE BIENVENIDA */
 #win1 {
     justify-content: center;
     text-align: center;
@@ -308,25 +307,11 @@ svg {
     margin-bottom: 35px;
     line-height: 1.6;
 }
-
-/* REPRODUCTOR OCULTO DE YOUTUBE */
-#yt-player-container {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
-}
 </style>
 </head>
 <body>
 
-<!-- REPRODUCTOR OCULTO DE YOUTUBE -->
-<div id="yt-player-container">
-    <div id="player"></div>
-</div>
-
-<!-- FUNCIÓN COMPONENTE DE LA FLOR EN SVG -->
+<!-- REGRADIENTES SVG GLOBALES -->
 <svg style="display:none;">
     <defs>
         <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
@@ -363,510 +348,168 @@ svg {
     </defs>
 </svg>
 
+<!-- PLANTILLA REUTILIZABLE SVG DE LA FLOR CORREGIDA -->
+<g id="flower-svg-template" style="display:none;">
+    <g class="flower-skeleton">
+        <!-- TIERRA / MACETA -->
+        <g class="part-tierra">
+            <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
+            <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
+            <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
+        </g>
+        
+        <!-- BROTE -->
+        <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
+
+        <!-- TALLO UNIFICADO Y CENTRADO -->
+        <path class="part-tallo" d="M 150 340 C 145 260, 155 180, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+
+        <!-- HOJAS CONECTADAS AL TALLO -->
+        <g class="part-hoja-izq">
+            <path d="M 148 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 148 250 Z" fill="url(#leafGrad)"/>
+            <path d="M 148 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+        </g>
+
+        <g class="part-hoja-der">
+            <path d="M 152 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 152 210 Z" fill="url(#leafGrad)"/>
+            <path d="M 152 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+        </g>
+
+        <!-- CAPULLO CENTRADO EN (150, 110) -->
+        <g class="part-capullo">
+            <path d="M 150 135 Q 138 115 150 90 Q 162 115 150 135 Z" fill="url(#yellowPetal)"/>
+            <path d="M 144 138 Q 132 120 142 105 Q 150 125 144 138 Z" fill="#27ae60"/>
+            <path d="M 156 138 Q 168 120 158 105 Q 150 125 156 138 Z" fill="#27ae60"/>
+        </g>
+
+        <!-- RESPLANDOR -->
+        <circle class="part-brillo" cx="150" cy="110" r="75" fill="url(#sunGlow)"/>
+
+        <!-- PÉTALOS DE MARGARITA -->
+        <g class="part-petalos">
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
+            <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
+        </g>
+
+        <!-- CENTRO DE LA FLOR -->
+        <g class="part-centro">
+            <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
+            <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
+        </g>
+    </g>
+</g>
+
 <!-- ================= VENTANA 1: BIENVENIDA ================= -->
 <div class="window active" id="win1">
     <h1>Para Abigail ❤️</h1>
     <p>Responde cada acertijo para hacer florecer esta margarita dorada guardada para ti.</p>
-    <button class="btn" onclick="startExperience()">COMENZAR</button>
+    <button class="btn" onclick="goToWindow(2)">COMENZAR</button>
 </div>
 
-<!-- ================= VENTANA 2: PREGUNTA 1 ================= -->
+<!-- ================= VENTANA 2: PREGUNTA 1 (CRECE EL TALLO) ================= -->
 <div class="window" id="win2">
-    <div class="flower-box stage-0">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
+    <div class="flower-box stage-1" id="box-win2">
+        <svg viewBox="0 0 300 400" id="svg-win2"></svg>
     </div>
-
     <div class="card">
         <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" class="question-img" alt="Imagen 1">
-        <div class="question-text">pregunta1</div>
+        <div class="question-text">¿Cuál es nuestro lugar especial favorito?</div>
         <input type="text" id="ans1" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(1, respuesta1, 'v2-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(1, 'parque', 'v2-next', 'box-win2', 1)">Comprobar</button>
         <div id="feedback1" class="feedback-msg"></div>
-        <button id="v2-next" class="btn btn-next" onclick="goToWindow(3, musica2)">Siguiente ➔</button>
+        <button id="v2-next" class="btn btn-next" onclick="goToWindow(3)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 3: PREGUNTA 2 ================= -->
+<!-- ================= VENTANA 3: PREGUNTA 2 (SALEN HOJAS) ================= -->
 <div class="window" id="win3">
-    <div class="flower-box stage-0">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
+    <div class="flower-box stage-2" id="box-win3">
+        <svg viewBox="0 0 300 400" id="svg-win3"></svg>
     </div>
-
     <div class="card">
         <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" class="question-img" alt="Imagen 2">
-        <div class="question-text">pregunta2</div>
+        <div class="question-text">¿Qué canción siempre nos recuerda uno al otro?</div>
         <input type="text" id="ans2" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(2, respuesta2, 'v3-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(2, 'musica', 'v3-next', 'box-win3', 2)">Comprobar</button>
         <div id="feedback2" class="feedback-msg"></div>
-        <button id="v3-next" class="btn btn-next" onclick="goToWindow(4, musica3)">Siguiente ➔</button>
+        <button id="v3-next" class="btn btn-next" onclick="goToWindow(4)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 4: PREGUNTA 3 ================= -->
+<!-- ================= VENTANA 4: PREGUNTA 3 (NACE EL CAPULLO) ================= -->
 <div class="window" id="win4">
-    <div class="flower-box stage-0">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
+    <div class="flower-box stage-3" id="box-win4">
+        <svg viewBox="0 0 300 400" id="svg-win4"></svg>
     </div>
-
     <div class="card">
         <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500" class="question-img" alt="Imagen 3">
-        <div class="question-text">pregunta3</div>
+        <div class="question-text">¿En qué mes nos conocimos?</div>
         <input type="text" id="ans3" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(3, respuesta3, 'v4-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(3, 'septiembre', 'v4-next', 'box-win4', 3)">Comprobar</button>
         <div id="feedback3" class="feedback-msg"></div>
-        <button id="v4-next" class="btn btn-next" onclick="goToWindow(5, musica4)">Siguiente ➔</button>
+        <button id="v4-next" class="btn btn-next" onclick="goToWindow(5)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 5: PREGUNTA 4 ================= -->
+<!-- ================= VENTANA 5: PREGUNTA 4 (FLORECIMIENTO COMPLETO) ================= -->
 <div class="window" id="win5">
-    <div class="flower-box stage-0">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
+    <div class="flower-box stage-5" id="box-win5">
+        <svg viewBox="0 0 300 400" id="svg-win5"></svg>
     </div>
-
     <div class="card">
         <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" class="question-img" alt="Imagen 4">
-        <div class="question-text">pregunta4</div>
+        <div class="question-text">¿Cual es la palabra secreta de nuestro amor?</div>
         <input type="text" id="ans4" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(4, respuesta4, 'v5-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(4, 'siempre', 'v5-next', 'box-win5', 5)">Comprobar</button>
         <div id="feedback4" class="feedback-msg"></div>
-        <button id="v5-next" class="btn btn-next" onclick="goToWindow(6, musica5)">Siguiente ➔</button>
+        <button id="v5-next" class="btn btn-next" onclick="alert('¡Has completado el camino de la flor para Abigail! ❤️')">Finalizar ❤️</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 6: PREGUNTA 5 ================= -->
-<div class="window" id="win6">
-    <div class="flower-box stage-0">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
-    </div>
-
-    <div class="card">
-        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500" class="question-img" alt="Imagen 5">
-        <div class="question-text">pregunta5</div>
-        <input type="text" id="ans5" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(5, respuesta5, 'v6-next')">Comprobar</button>
-        <div id="feedback5" class="feedback-msg"></div>
-        <button id="v6-next" class="btn btn-next" onclick="goToWindow(7, musica6)">Ver Resultado ➔</button>
-    </div>
-</div>
-
-<!-- ================= VENTANA 7: FINAL ================= -->
-<div class="window" id="win7">
-    <div class="flower-box stage-5" style="width: 310px; height: 370px;">
-        <svg viewBox="0 0 300 400">
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
-                </g>
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
-    </div>
-
-    <div class="card">
-        <h2>¡Margarita Completa!</h2>
-        <p style="line-height: 1.6; color: #e0d0cc; font-size: 1.05rem; margin-top: 10px;">
-            Cada respuesta hizo florecer esta margarita amarilla. Tal como las flores amarillas iluminan este día, tú le das luz a cada uno de mis momentos. ¡Gracias por estar aquí, Abigail! ❤️
-        </p>
-    </div>
-</div>
-
-<!-- LÓGICA JAVASCRIPT -->
 <script>
-const musica1 = "dQw4w9WgXcQ";
-const musica2 = "dQw4w9WgXcQ";
-const musica3 = "dQw4w9WgXcQ";
-const musica4 = "dQw4w9WgXcQ";
-const musica5 = "dQw4w9WgXcQ";
-const musica6 = "dQw4w9WgXcQ";
-
-const pregunta1 = "pregunta1";
-const pregunta2 = "pregunta2";
-const pregunta3 = "pregunta3";
-const pregunta4 = "pregunta4";
-const pregunta5 = "pregunta5";
-
-const respuesta1 = "respuesta1";
-const respuesta2 = "respuesta2";
-const respuesta3 = "respuesta3";
-const respuesta4 = "respuesta4";
-const respuesta5 = "respuesta5";
-
-let player;
-let progress = 0;
-
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-function onYouTubeIframeAPIReady() {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        playerVars: {
-            'autoplay': 0,
-            'controls': 0
-        }
+// Clona la flor corregida a todos los contenedores SVG
+window.addEventListener('DOMContentLoaded', () => {
+    const template = document.getElementById('flower-svg-template').innerHTML;
+    document.querySelectorAll('.flower-box svg').forEach(svg => {
+        svg.innerHTML = template;
     });
-}
+});
 
-function startExperience() {
-    if (player && player.loadVideoById) {
-        player.loadVideoById(musica1);
-        player.playVideo();
-    }
-    goToWindow(2);
-}
-
-function goToWindow(winNumber, videoId = null) {
+function goToWindow(winNumber) {
     document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
-    
-    const targetWin = document.getElementById('win' + winNumber);
-    targetWin.classList.add('active');
-
-    const flowerBox = targetWin.querySelector('.flower-box');
-    if (flowerBox) {
-        const stage = (winNumber === 7) ? 5 : Math.min(progress, 5);
-        flowerBox.className = 'flower-box stage-' + stage;
-    }
-
-    if (videoId && player && player.loadVideoById) {
-        player.loadVideoById(videoId);
-        player.playVideo();
-    }
+    document.getElementById('win' + winNumber).classList.add('active');
 }
 
-function checkAnswer(questionNum, correctAnswer, nextBtnId) {
-    const input = document.getElementById('ans' + questionNum);
-    const feedback = document.getElementById('feedback' + questionNum);
-    const nextBtn = document.getElementById(nextBtnId);
+function checkAnswer(step, correctAnswer, nextBtnId, boxId, nextStage) {
+    const input = document.getElementById('ans' + step);
+    const feedback = document.getElementById('feedback' + step);
+    const btnNext = document.getElementById(nextBtnId);
+    const flowerBox = document.getElementById(boxId);
 
-    const userAns = input.value.trim().toLowerCase();
-
-    if (userAns === correctAnswer.toLowerCase()) {
-        feedback.style.color = '#f1c40f';
-        feedback.innerText = '¡Correcto! La margarita ha crecido... ❤️';
-        nextBtn.style.display = 'inline-block';
+    if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
+        feedback.style.color = "#2ecc71";
+        feedback.textContent = "¡Correcto! La margarita sigue floreciendo...";
+        btnNext.style.display = "inline-block";
         
-        if (questionNum > progress) {
-            progress = questionNum;
-            const currentWin = document.getElementById('win' + (questionNum + 1));
-            if (currentWin) {
-                const flowerBox = currentWin.querySelector('.flower-box');
-                if (flowerBox) {
-                    flowerBox.className = 'flower-box stage-' + progress;
-                }
-            }
-        }
+        // Sube a la siguiente etapa de animación
+        flowerBox.className = "flower-box stage-" + nextStage;
     } else {
-        feedback.style.color = '#e74c3c';
-        feedback.innerText = 'Inténtalo de nuevo... 🌹';
+        feedback.style.color = "#e74c3c";
+        feedback.textContent = "Inténtalo de nuevo, Abigail ❤️";
     }
 }
 </script>
