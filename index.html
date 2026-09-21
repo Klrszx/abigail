@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Abigail</title>
+
+<style>
+/* =========================================================
+   CONFIGURACIÓN GENERAL
+   ========================================================= */
+
+:root {
+    --bg: #080808;
+    --bg2: #111111;
+    --card: #151515;
+    --red: #b5122b;
+    --red-light: #e22b48;
+    --white: #eeeeee;
+    --gray: #999999;
+    --dark-gray: #222222;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(circle at 50% 0%, #241016 0%, transparent 40%),
+        var(--bg);
+    color: var(--white);
+    font-family: Georgia, "Times New Roman", serif;
+    min-height: 100vh;
+}
+
+/* =========================================================
+   EFECTO DE RUIDO / PELÍCULA
+   ========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    z-index: 999;
+    background-image:
+        repeating-radial-gradient(
+            circle at 0 0,
+            transparent 0,
+            #fff 1px,
+            transparent 2px
+        );
+}
+
+/* =========================================================
+   PANTALLA DE INICIO
+   ========================================================= */
+
+.screen {
+    min-height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+.intro {
+    text-align: center;
+    max-width: 800px;
+    animation: fadeIn 1.5s ease;
+}
+
+.small-title {
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: 12px;
+}
+
+h1 {
+    font-size: clamp(45px, 10vw, 100px);
+    margin: 15px 0;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+}
+
+.red {
+    color: var(--red-light);
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 18px;
+    line-height: 1.8;
+    max-width: 600px;
+    margin: auto;
+}
+
+button {
+    border: 1px solid #8d1b2f;
+    background: transparent;
+    color: white;
+    padding: 15px 30px;
+    margin-top: 30px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: var(--red);
+    border-color: var(--red);
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   CONTENIDO
+   ========================================================= */
+
+.container {
+    width: min(900px, 92%);
+    margin: auto;
+    padding: 70px 0;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.header h2 {
+    font-size: clamp(30px, 6vw, 55px);
+    margin: 10px 0;
+}
+
+.progress {
+    height: 2px;
+    background: #222;
+    margin: 30px auto;
+    max-width: 500px;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: var(--red-light);
+    transition: width 0.8s ease;
+}
+
+/* =========================================================
+   TARJETAS
+   ========================================================= */
+
+.card {
+    background: rgba(20,20,20,0.94);
+    border: 1px solid #292929;
+    padding: clamp(25px, 5vw, 50px);
+    margin-bottom: 35px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+
+.card h3 {
+    font-size: 28px;
+    margin-top: 0;
+}
+
+.card p {
+    color: #c0c0c0;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   CANCIÓN
+   ========================================================= */
+
+.song {
+    border-left: 3px solid var(--red);
+    padding-left: 20px;
+    margin: 30px 0;
+}
+
+.song-title {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.artist {
+    color: var(--gray);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =========================================================
+   BOTÓN DE CANCIÓN
+   ========================================================= */
+
+.song-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: white;
+    border: 1px solid #444;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: .3s;
+}
+
+.song-link:hover {
+    background: var(--red);
+    border-color: var(--red);
+}
+
+/* =========================================================
+   ACERTIJO
+   ========================================================= */
+
+.riddle {
+    margin-top: 30px;
+    padding: 25px;
+    background: #0c0c0c;
+    border-left: 2px solid var(--red);
+}
+
+.riddle-text {
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.7;
+}
+
+.code-area {
+    margin-top: 25px;
+}
+
+input {
+    width: 100%;
+    max-width: 350px;
+    padding: 15px;
+    background: #080808;
+    border: 1px solid #444;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: var(--red);
+}
+
+.error {
+    color: #e74c3c;
+    margin-top: 15px;
+    display: none;
+}
+
+.success {
+    color: #63d471;
+    margin-top: 15px;
+    display: none;
+}
+
+/* =========================================================
+   TEXTO OCULTO
+   ========================================================= */
+
+.hidden-message {
+    display: none;
+    margin-top: 30px;
+    padding: 30px;
+    border: 1px dashed #555;
+    background: #0b0b0b;
+    animation: reveal .8s ease;
+}
+
+.hidden-message.show {
+    display: block;
+}
+
+.secret {
+    color: #ddd;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+/* =========================================================
+   FOTOS
+   ========================================================= */
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.photo {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    background: #222;
+    border: 1px solid #333;
+    filter: grayscale(15%);
+    transition: .5s;
+}
+
+.photo:hover {
+    filter: grayscale(0%);
+    transform: scale(1.02);
+}
+
+/* =========================================================
+   SECCIONES BLOQUEADAS
+   ========================================================= */
+
+.locked {
+    opacity: .35;
+    pointer-events: none;
+    filter: blur(1px);
+}
+
+.unlocked {
+    opacity: 1;
+    pointer-events: auto;
+    filter: none;
+    animation: unlock .8s ease;
+}
+
+/* =========================================================
+   MENSAJE FINAL
+   ========================================================= */
+
+.final {
+    text-align: center;
+}
+
+.final-symbol {
+    font-size: 60px;
+    color: var(--red-light);
+    margin-bottom: 20px;
+}
+
+.final-message {
+    font-size: 21px;
+    line-height: 2;
+    color: #ddd;
+}
+
+/* =========================================================
+   QR
+   ========================================================= */
+
+#qrcode {
+    margin: 30px auto;
+    display: flex;
+    justify-content: center;
+}
+
+#qrcode img {
+    border: 10px solid white;
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes reveal {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes unlock {
+    from {
+        opacity: 0;
+        transform: scale(.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .container {
+        padding: 45px 0;
+    }
+
+    .card {
+        padding: 25px 20px;
+    }
+
+    .photo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    h1 {
+        letter-spacing: 4px;
+    }
+
+    .subtitle {
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+    }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     PANTALLA DE INICIO
+     ======================================================= -->
+
+<section id="intro" class="screen active">
+
+    <div class="intro">
+
+        <div class="small-title">
+            Un pequeño archivo de nuestra historia
+        </div>
+
+        <h1>
+            <span class="red">A</span>bigail
+        </h1>
+
+        <p class="subtitle">
+            Cinco canciones.<br>
+            Cinco pistas.<br>
+            Una historia que solamente nosotros conocemos.
+        </p>
+
+        <button onclick="startStory()">
+            Comenzar
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     HISTORIA
+     ======================================================= -->
+
+<section id="story" class="screen">
+
+<div class="container">
+
+    <div class="header">
+
+        <div class="small-title">
+            2 años
+        </div>
+
+        <h2>
+            Esto no es una carta.
+        </h2>
+
+        <p class="subtitle">
+            Es algo que tendrás que descubrir.
+        </p>
+
+        <div class="progress">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         PISTA 1
+         =================================================== -->
+
+    <div class="card">
+
+        <div class="small-title">
+            Pista 01
+        </div>
+
+        <h3>
+            La primera canción
+        </h3>
+
+        <p>
+            Hay canciones que simplemente escuchamos.
+            Y hay canciones que terminan teniendo un significado
+            completamente diferente después de conocer a alguien.
+        </p>
+
+        <div class="song">
+
+            <div class="song-title">
+                Abigail
+            </div>
+
+            <div class="artist">
+                Panda — Poetics
+            </div>
+
+            <!-- REEMPLAZA EL # POR TU LINK EXACTO -->
+            <a
+                class="song-link"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Escuchar canción ↗
+            </a>
+
+        </div>
+
+
+        <div class="riddle">
+
+            <div class="small-title">
+                Encuentra la palabra
+            </div>
+
+            <p class="riddle-text">
+                No tienes que buscar una palabra cualquiera.
+                Busca aquella que tenga que ver con tu nombre.
+            </p>
+
+            <p>
+                Cuando la encuentres, escríbela aquí.
+            </p>
+
+            <div class="code-area">
+
+                <input
+                    id="code1"
+                    type="text"
+                    placeholder="Escribe la respuesta">
+
+                <br>
+
+                <button onclick="checkCode(1)">
+                    Comprobar
+                </button>
+
+                <div id="error1" class="error">
+                    Todavía no.
+                </div>
+
+                <div id="success1" class="success">
+                    Correcto.
+                </div>
+
+            </div>
+
+
+            <div id="secret1" class="hidden-message">
+
+                <p class="secret">
+                    Algunas historias empiezan antes de que
+                    nos demos cuenta de que están empezando.
+                </p>
+
+                <button onclick="unlockSection(2)">
+                    Continuar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         PISTA 2
+         =================================================== -->
+
+    <div id="section2" class="card locked">
+
+        <div class="small-title">
+            Pista 02
+        </div>
+
+        <h3>
+            For Your Love
+        </h3>
+
+        <p>
+            Ahora busca algo que no esté escrito directamente.
+        </p>
+
+        <div class="song">
+
+            <div class="song-title">
+                For Your Love
+            </div>
+
+            <div class="artist">
+                Måneskin
+            </div>
+
+            <!-- REEMPLAZA EL # -->
+            <a
+                class="song-link"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Escuchar canción ↗
+            </a>
+
+        </div>
+
+
+        <div class="riddle">
+
+            <p class="riddle-text">
+                Hay una frase escondida.
+                No está necesariamente donde esperas encontrarla.
+            </p>
+
+            <p>
+                Pista:
+                <strong>mira, pero también lee entre líneas.</strong>
+            </p>
+
+            <input
+                id="code2"
+                type="text"
+                placeholder="Código">
+
+            <br>
+
+            <button onclick="checkCode(2)">
+                Desbloquear
+            </button>
+
+            <div id="error2" class="error">
+                Esa no es la respuesta.
+            </div>
+
+            <div id="success2" class="success">
+                Has encontrado la segunda llave.
+            </div>
+
+            <div id="secret2" class="hidden-message">
+
+                <p class="secret">
+                    Dos personas pueden escuchar exactamente
+                    la misma canción y recordar cosas completamente
+                    diferentes.
+                </p>
+
+                <button onclick="unlockSection(3)">
+                    Siguiente
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         PISTA 3
+         =================================================== -->
+
+    <div id="section3" class="card locked">
+
+        <div class="small-title">
+            Pista 03
+        </div>
+
+        <h3>
+            Slide Away
+        </h3>
+
+        <div class="song">
+
+            <div class="song-title">
+                Slide Away
+            </div>
+
+            <div class="artist">
+                Oasis
+            </div>
+
+            <!-- REEMPLAZA EL # -->
+            <a
+                class="song-link"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Escuchar canción ↗
+            </a>
+
+        </div>
+
+
+        <div class="riddle">
+
+            <p class="riddle-text">
+                Algunas cosas se van.
+                Algunas personas se quedan.
+                Y algunas terminan formando parte de nuestra historia
+                aunque nunca hubiéramos planeado que ocurriera.
+            </p>
+
+            <p>
+                Busca la respuesta que representa esa idea.
+            </p>
+
+            <input
+                id="code3"
+                type="text"
+                placeholder="Código">
+
+            <br>
+
+            <button onclick="checkCode(3)">
+                Comprobar
+            </button>
+
+            <div id="error3" class="error">
+                Intenta nuevamente.
+            </div>
+
+            <div id="success3" class="success">
+                Correcto.
+            </div>
+
+            <div id="secret3" class="hidden-message">
+
+                <p class="secret">
+                    Y mientras algunas cosas cambian,
+                    nosotros seguimos acumulando recuerdos.
+                </p>
+
+                <!-- FOTO -->
+                <div class="photo-grid">
+
+                    <!-- REEMPLAZA ESTOS NOMBRES POR TUS FOTOS -->
+
+                    <img
+                        class="photo"
+                        src="fotos/foto1.jpg"
+                        alt="Nuestro recuerdo">
+
+                    <img
+                        class="photo"
+                        src="fotos/foto2.jpg"
+                        alt="Nuestro recuerdo">
+
+                </div>
+
+                <button onclick="unlockSection(4)">
+                    Continuar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         PISTA 4
+         =================================================== -->
+
+    <div id="section4" class="card locked">
+
+        <div class="small-title">
+            Pista 04
+        </div>
+
+        <h3>
+            Frances Limón
+        </h3>
+
+        <p>
+            Esta vez no tienes que encontrar una palabra.
+        </p>
+
+        <p>
+            Tienes que recordar.
+        </p>
+
+        <div class="song">
+
+            <div class="song-title">
+                Frances Limón
+            </div>
+
+            <div class="artist">
+                Enanitos Verdes
+            </div>
+
+            <!-- REEMPLAZA EL # -->
+            <a
+                class="song-link"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Escuchar canción ↗
+            </a>
+
+        </div>
+
+
+        <div class="riddle">
+
+            <p class="riddle-text">
+                Hay recuerdos que no necesitan explicación.
+                Solo necesitan una fecha, un lugar
+                o una palabra para volver.
+            </p>
+
+            <input
+                id="code4"
+                type="text"
+                placeholder="Escribe el recuerdo">
+
+            <br>
+
+            <button onclick="checkCode(4)">
+                Comprobar
+            </button>
+
+            <div id="error4" class="error">
+                Ese no es el recuerdo que estoy buscando.
+            </div>
+
+            <div id="success4" class="success">
+                Sí. Ese.
+            </div>
+
+            <div id="secret4" class="hidden-message">
+
+                <p class="secret">
+                    Quizá algún día olvidemos pequeños detalles.
+                    Pero espero que nunca olvidemos lo que sentimos
+                    cuando empezamos a construir todo esto.
+                </p>
+
+                <button onclick="unlockSection(5)">
+                    Última pista
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         PISTA 5
+         =================================================== -->
+
+    <div id="section5" class="card locked">
+
+        <div class="small-title">
+            Pista 05
+        </div>
+
+        <h3>
+            Wonderwall
+        </h3>
+
+        <div class="song">
+
+            <div class="song-title">
+                Wonderwall
+            </div>
+
+            <div class="artist">
+                Oasis
+            </div>
+
+            <!-- REEMPLAZA EL # -->
+            <a
+                class="song-link"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Escuchar canción ↗
+            </a>
+
+        </div>
+
+
+        <div class="riddle">
+
+            <p class="riddle-text">
+                Última pregunta.
+            </p>
+
+            <p>
+                Después de cinco canciones,
+                ¿qué queda?
+            </p>
+
+            <input
+                id="code5"
+                type="text"
+                placeholder="La respuesta">
+
+            <br>
+
+            <button onclick="checkCode(5)">
+                Abrir
+            </button>
+
+            <div id="error5" class="error">
+                Casi.
+            </div>
+
+            <div id="success5" class="success">
+                Abriste la última puerta.
+            </div>
+
+            <div id="secret5" class="hidden-message">
+
+                <p class="secret">
+                    Queda nuestra historia.
+                </p>
+
+                <button onclick="showFinal()">
+                    Abrir lo último
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         FINAL
+         =================================================== -->
+
+    <div
+        id="final"
+        class="card final locked">
+
+        <div class="final-symbol">
+            ♥
+        </div>
+
+        <div class="small-title">
+            Fin de las pistas
+        </div>
+
+        <h3>
+            Abigail
+        </h3>
+
+
+        <!-- AQUÍ PUEDES PONER UNA FOTO ESPECIAL -->
+
+        <img
+            class="photo"
+            src="fotos/final.jpg"
+            alt="Nosotros"
+            style="max-width:500px; display:block; margin:30px auto;">
+
+
+        <p class="final-message">
+
+            Dos años pueden parecer solamente una cantidad
+            de tiempo escrita en un calendario.
+
+            <br><br>
+
+            Pero cuando miro todo lo que pasó entre el primer día
+            y ahora, dos años parecen mucho más que eso.
+
+            <br><br>
+
+            Son canciones.
+            Son lugares.
+            Son conversaciones.
+            Son momentos absurdos.
+            Son recuerdos que solamente nosotros entendemos.
+
+            <br><br>
+
+            Y probablemente todavía nos falten
+            muchas canciones, lugares y recuerdos por agregar.
+
+            <br><br>
+
+            <strong>
+                Feliz aniversario.
+            </strong>
+
+            <br><br>
+
+            Gracias por estos dos años.
+
+            <br><br>
+
+            — Kheler
+
+        </p>
+
+
+        <!-- =================================================
+             QR
+             ================================================= -->
+
+        <div style="margin-top:70px;">
+
+            <div class="small-title">
+                Y una última cosa...
+            </div>
+
+            <p>
+                Guarda esto. Quizá algún día quieras volver.
+            </p>
+
+            <div id="qrcode"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+     ======================================================= -->
+
+<script>
+
+/* =========================================================
+   CONFIGURACIÓN
+   ========================================================= */
+
+/*
+   AQUÍ DEFINIMOS LAS RESPUESTAS.
+
+   IMPORTANTE:
+   Puedes cambiar las respuestas por las que tú quieras.
+
+   El sistema ignora mayúsculas/minúsculas y espacios
+   adicionales.
+*/
+
+const answers = {
+
+    1: "ABIGAIL",
+
+    2: "AMOR",
+
+    3: "QUEDARNOS",
+
+    4: "RECUERDO",
+
+    5: "NOSOTROS"
+
+};
+
+
+/* =========================================================
+   INICIAR HISTORIA
+   ========================================================= */
+
+function startStory() {
+
+    document.getElementById("intro").classList.remove("active");
+
+    document.getElementById("story").classList.add("active");
+
+    updateProgress(1);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================================================
+   NORMALIZAR TEXTO
+   ========================================================= */
+
+function normalize(text) {
+
+    return text
+        .trim()
+        .toUpperCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+
+}
+
+
+/* =========================================================
+   COMPROBAR CÓDIGO
+   ========================================================= */
+
+function checkCode(number) {
+
+    const input =
+        document.getElementById("code" + number);
+
+    const error =
+        document.getElementById("error" + number);
+
+    const success =
+        document.getElementById("success" + number);
+
+    const secret =
+        document.getElementById("secret" + number);
+
+
+    const userAnswer =
+        normalize(input.value);
+
+    const correctAnswer =
+        normalize(answers[number]);
+
+
+    error.style.display = "none";
+    success.style.display = "none";
+
+
+    if (userAnswer === correctAnswer) {
+
+        success.style.display = "block";
+
+        secret.classList.add("show");
+
+        updateProgress(number + 1);
+
+    } else {
+
+        error.style.display = "block";
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}
+
+
+/* =========================================================
+   DESBLOQUEAR SIGUIENTE SECCIÓN
+   ========================================================= */
+
+function unlockSection(number) {
+
+    const section =
+        document.getElementById("section" + number);
+
+    section.classList.remove("locked");
+
+    section.classList.add("unlocked");
+
+
+    setTimeout(() => {
+
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 200);
+
+}
+
+
+/* =========================================================
+   MOSTRAR FINAL
+   ========================================================= */
+
+function showFinal() {
+
+    const final =
+        document.getElementById("final");
+
+    final.classList.remove("locked");
+
+    final.classList.add("unlocked");
+
+    updateProgress(6);
+
+    setTimeout(() => {
+
+        final.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }, 300);
+
+
+    generateQR();
+
+}
+
+
+/* =========================================================
+   BARRA DE PROGRESO
+   ========================================================= */
+
+function updateProgress(stage) {
+
+    const bar =
+        document.getElementById("progressBar");
+
+    const percentage =
+        Math.min((stage / 6) * 100, 100);
+
+    bar.style.width =
+        percentage + "%";
+
+}
+
+
+/* =========================================================
+   CÓDIGO QR
+   ========================================================= */
+
+/*
+   Esta función utiliza una API gratuita para generar
+   el QR.
+
+   Cuando publiques la página, el QR apuntará
+   automáticamente a la URL actual.
+*/
+
+function generateQR() {
+
+    const qr =
+        document.getElementById("qrcode");
+
+    const currentURL =
+        window.location.href;
+
+    qr.innerHTML = `
+        <img
+            src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(currentURL)}"
+            alt="Código QR">
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
