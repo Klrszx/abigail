@@ -33,7 +33,6 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
-    position: relative;
     box-sizing: border-box;
 }
 
@@ -49,7 +48,7 @@ body {
     transition: filter 0.5s ease;
 }
 
-/* Filtro B/N para las partes no descubiertas */
+/* Filtros Blanco y Negro / Color */
 .bw {
     filter: grayscale(100%) brightness(0.6);
     transition: filter 0.8s ease;
@@ -130,7 +129,7 @@ body {
     background: #55efc4;
     color: #2d3436;
     font-weight: bold;
-    display: none; /* Se oculta hasta responder bien */
+    display: none;
 }
 
 .btn-next:hover {
@@ -161,7 +160,7 @@ body {
     margin-bottom: 30px;
 }
 
-/* CONTENEDOR OCULTO DE YOUTUBE */
+/* REPRODUCTOR OCULTO DE YOUTUBE */
 #yt-player-container {
     position: absolute;
     width: 1px;
@@ -187,10 +186,10 @@ body {
 
 <!-- ================= VENTANA 2: PREGUNTA 1 ================= -->
 <div class="window" id="win2">
-    <!-- SVG FLOR -->
+    <!-- SVG FLOR BASE -->
     <div class="flower-container">
         <svg viewBox="0 0 200 240" width="100%" height="100%">
-            <!-- TIERRA (Desbloqueada en color en V2) -->
+            <!-- TIERRA -->
             <path id="f-tierra" class="color" d="M 20 220 Q 100 200 180 220 Q 100 240 20 220 Z" fill="#795548"/>
             <!-- TALLO -->
             <path id="f-tallo" class="bw" d="M 97 220 L 97 100 L 103 100 L 103 220 Z" fill="#4CAF50"/>
@@ -213,28 +212,26 @@ body {
 
     <!-- TARJETA -->
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" class="question-img" alt="Foto 1">
-        <div class="question-text">1. ¿En qué lugar fue nuestra primera cita o salida especial?</div>
+        <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" class="question-img" alt="Imagen 1">
+        <div class="question-text">pregunta1</div>
         <input type="text" id="ans1" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(1, 'parque', 'v2-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(1, respuesta1, 'v2-next')">Comprobar</button>
         <div id="feedback1" class="feedback-msg"></div>
-        <button id="v2-next" class="btn btn-next" onclick="goToWindow(3, 'VIDEO_ID_2')">Siguiente ➔</button>
+        <button id="v2-next" class="btn btn-next" onclick="goToWindow(3, musica2)">Siguiente ➔</button>
     </div>
 </div>
 
 <!-- ================= VENTANA 3: PREGUNTA 2 ================= -->
 <div class="window" id="win3">
-    <div class="flower-container">
-        <!-- El SVG se clona dinámicamente con JavaScript -->
-    </div>
+    <div class="flower-container"></div>
 
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" class="question-img" alt="Foto 2">
-        <div class="question-text">2. ¿Cuál es la comida o postre que siempre pedimos juntos?</div>
+        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" class="question-img" alt="Imagen 2">
+        <div class="question-text">pregunta2</div>
         <input type="text" id="ans2" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(2, 'helado', 'v3-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(2, respuesta2, 'v3-next')">Comprobar</button>
         <div id="feedback2" class="feedback-msg"></div>
-        <button id="v3-next" class="btn btn-next" onclick="goToWindow(4, 'VIDEO_ID_3')">Siguiente ➔</button>
+        <button id="v3-next" class="btn btn-next" onclick="goToWindow(4, musica3)">Siguiente ➔</button>
     </div>
 </div>
 
@@ -243,12 +240,12 @@ body {
     <div class="flower-container"></div>
 
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500" class="question-img" alt="Foto 3">
-        <div class="question-text">3. ¿Qué mes o fecha importante celebramos siempre?</div>
+        <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500" class="question-img" alt="Imagen 3">
+        <div class="question-text">pregunta3</div>
         <input type="text" id="ans3" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(3, 'septiembre', 'v4-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(3, respuesta3, 'v4-next')">Comprobar</button>
         <div id="feedback3" class="feedback-msg"></div>
-        <button id="v4-next" class="btn btn-next" onclick="goToWindow(5, 'VIDEO_ID_4')">Siguiente ➔</button>
+        <button id="v4-next" class="btn btn-next" onclick="goToWindow(5, musica4)">Siguiente ➔</button>
     </div>
 </div>
 
@@ -257,12 +254,12 @@ body {
     <div class="flower-container"></div>
 
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" class="question-img" alt="Foto 4">
-        <div class="question-text">4. ¿Cuál es el apodo o palabra cariñosa que más uso contigo?</div>
+        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" class="question-img" alt="Imagen 4">
+        <div class="question-text">pregunta4</div>
         <input type="text" id="ans4" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(4, 'amor', 'v5-next')">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(4, respuesta4, 'v5-next')">Comprobar</button>
         <div id="feedback4" class="feedback-msg"></div>
-        <button id="v5-next" class="btn btn-next" onclick="goToWindow(6, 'VIDEO_ID_5')">Siguiente ➔</button>
+        <button id="v5-next" class="btn btn-next" onclick="goToWindow(6, musica5)">Siguiente ➔</button>
     </div>
 </div>
 
@@ -271,12 +268,12 @@ body {
     <div class="flower-container"></div>
 
     <div class="card">
-        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500" class="question-img" alt="Foto 5">
-        <div class="question-text">5. ¿Estás lista para ver tu flor florecida completamente?</div>
-        <input type="text" id="ans5" class="answer-input" placeholder="Escribe 'si'">
-        <button class="btn" onclick="checkAnswer(5, 'si', 'v6-next')">Comprobar</button>
+        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500" class="question-img" alt="Imagen 5">
+        <div class="question-text">pregunta5</div>
+        <input type="text" id="ans5" class="answer-input" placeholder="Escribe tu respuesta aquí...">
+        <button class="btn" onclick="checkAnswer(5, respuesta5, 'v6-next')">Comprobar</button>
         <div id="feedback5" class="feedback-msg"></div>
-        <button id="v6-next" class="btn btn-next" onclick="goToWindow(7, 'VIDEO_ID_FINAL')">Ver Resultado ➔</button>
+        <button id="v6-next" class="btn btn-next" onclick="goToWindow(7, musica6)">Ver Resultado ➔</button>
     </div>
 </div>
 
@@ -293,19 +290,37 @@ body {
 </div>
 
 
-<!-- LÓGICA JAVASCRIPT & YOUTUBE API -->
+<!-- LÓGICA JAVASCRIPT -->
 <script>
-// CONFIGURACIÓN DE VIDEOS DE YOUTUBE (Reemplaza los IDs por los tuyos)
-const playlist = {
-    win2: "dQw4w9WgXcQ", // Canción Ventana 2
-    win3: "dQw4w9WgXcQ", // Canción Ventana 3
-    win4: "dQw4w9WgXcQ", // Canción Ventana 4
-    win5: "dQw4w9WgXcQ", // Canción Ventana 5
-    win6: "dQw4w9WgXcQ", // Canción Ventana 6
-    win7: "dQw4w9WgXcQ"  // Canción Final
-};
+/* =========================================================
+   CONFIGURACIÓN DE PREGUNTAS, RESPUESTAS Y MÚSICA DE YOUTUBE
+   ========================================================= */
 
-// ESTADO DE LA FLOR (partes a color según el nivel)
+// IDs de las canciones en YouTube (reemplazar según prefieras)
+const musica1 = "dQw4w9WgXcQ";
+const musica2 = "dQw4w9WgXcQ";
+const musica3 = "dQw4w9WgXcQ";
+const musica4 = "dQw4w9WgXcQ";
+const musica5 = "dQw4w9WgXcQ";
+const musica6 = "dQw4w9WgXcQ"; // Música para la Ventana 7 Final
+
+// Texto de las Preguntas (se edita arriba en el HTML o aquí)
+const pregunta1 = "pregunta1";
+const pregunta2 = "pregunta2";
+const pregunta3 = "pregunta3";
+const pregunta4 = "pregunta4";
+const pregunta5 = "pregunta5";
+
+// Respuestas Correctas
+const respuesta1 = "respuesta1";
+const respuesta2 = "respuesta2";
+const respuesta3 = "respuesta3";
+const respuesta4 = "respuesta4";
+const respuesta5 = "respuesta5";
+
+/* =========================================================
+   ESTADO Y LÓGICA DE LA FLOR
+   ========================================================= */
 const flowerState = {
     1: ['f-tierra'],
     2: ['f-tierra', 'f-tallo'],
@@ -315,9 +330,9 @@ const flowerState = {
 };
 
 let player;
-let progress = 0; // Preguntas respondidas correctamente
+let progress = 0;
 
-// Cargar la API de YouTube
+// Cargar la API de YouTube sin reproducir nada
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -327,7 +342,6 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '0',
         width: '0',
-        videoId: playlist.win2,
         playerVars: {
             'autoplay': 0,
             'controls': 0
@@ -335,42 +349,40 @@ function onYouTubeIframeAPIReady() {
     });
 }
 
-// Iniciar Experiencia desde la Ventana 1
+// Iniciar la experiencia al dar clic en "COMENZAR" (Abre la Ventana 2 e inicia la musica1)
 function startExperience() {
     if (player && player.loadVideoById) {
-        player.loadVideoById(playlist.win2);
+        player.loadVideoById(musica1);
         player.playVideo();
     }
     goToWindow(2);
 }
 
-// Cambiar entre Ventanas y reproducir la canción correspondiente
+// Cambiar entre Ventanas
 function goToWindow(winNumber, videoId = null) {
     document.querySelectorAll('.window').forEach(w => w.classList.remove('active'));
     
     const targetWin = document.getElementById('win' + winNumber);
     targetWin.classList.add('active');
 
-    // Clonar y renderizar el estado actual de la flor en la nueva ventana
+    // Renderizar estado de la flor
     renderFlower(targetWin, winNumber - 1);
 
-    // Cambiar música
+    // Cambiar y reproducir la nueva canción si corresponde
     if (videoId && player && player.loadVideoById) {
         player.loadVideoById(videoId);
         player.playVideo();
     }
 }
 
-// Renderizar el gráfico SVG de la flor según las partes desbloqueadas
+// Renderizar la flor SVG con el progreso de colores
 function renderFlower(container, currentLevel) {
     const flowerBox = container.querySelector('.flower-container');
     if (!flowerBox) return;
 
-    // Tomamos la estructura base del SVG
     const baseSVG = document.querySelector('#win2 .flower-container').innerHTML;
     flowerBox.innerHTML = baseSVG;
 
-    // Aplicar los colores según el nivel de avance
     const activeParts = flowerState[Math.max(1, currentLevel)] || flowerState[1];
     
     ['f-tierra', 'f-tallo', 'f-hoja-izq', 'f-hoja-der', 'f-petalos', 'f-grano'].forEach(partId => {
@@ -400,7 +412,6 @@ function checkAnswer(questionNum, correctAnswer, nextBtnId) {
         feedback.innerText = '¡Correcto! ❤️';
         nextBtn.style.display = 'inline-block';
         
-        // Actualizar nivel de la flor
         if (questionNum > progress) {
             progress = questionNum;
             const currentWin = document.getElementById('win' + (questionNum + 1));
