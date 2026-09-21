@@ -1,235 +1,518 @@
-<script>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas</title>
 
-    /* =========================================================
-       PREGUNTAS
-    ========================================================== */
+    <style>
+        .pantalla {
+            display: none;
+        }
 
-    const preguntas = {
-        1: "pregunta1",
-        2: "pregunta2",
-        3: "pregunta3",
-        4: "pregunta4",
-        5: "pregunta5"
-    };
+        .pantalla.activa {
+            display: block;
+        }
 
+        .feedback {
+            margin-top: 10px;
+            font-weight: bold;
+        }
 
-    /* =========================================================
-       RESPUESTAS CORRECTAS
-    ========================================================== */
+        .feedback.correcta {
+            color: green;
+        }
 
-    const respuestasCorrectas = {
-        1: "respuesta1",
-        2: "respuesta2",
-        3: "respuesta3",
-        4: "respuesta4",
-        5: "respuesta5"
-    };
+        .feedback.incorrecta {
+            color: red;
+        }
 
+        .respuesta {
+            padding: 10px;
+            margin-top: 10px;
+        }
 
-    /* =========================================================
-       MOSTRAR LAS PREGUNTAS
-    ========================================================== */
+        button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
 
-    document.querySelector("#pantalla2 .pregunta").textContent = preguntas[1];
+        button:disabled {
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+    </style>
+</head>
 
-    document.querySelector("#pantalla3 .pregunta").textContent = preguntas[2];
+<body>
 
-    document.querySelector("#pantalla4 .pregunta").textContent = preguntas[3];
+    <!-- =====================================================
+         PANTALLA 1
+    ====================================================== -->
 
-    document.querySelector("#pantalla5 .pregunta").textContent = preguntas[4];
+    <section id="pantalla1" class="pantalla activa">
+        <h1>Bienvenida 💕</h1>
 
-    document.querySelector("#pantalla6 .pregunta").textContent = preguntas[5];
-
-
-    /* =========================================================
-       CAMBIAR DE VENTANA
-    ========================================================== */
-
-    function irA(numero) {
-
-        document.querySelectorAll(".pantalla").forEach(pantalla => {
-            pantalla.classList.remove("activa");
-        });
-
-        const siguiente =
-            document.getElementById("pantalla" + numero);
-
-        siguiente.classList.add("activa");
-
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
+        <button onclick="irA(2)">
+            COMENZAR
+        </button>
+    </section>
 
 
-    /* =========================================================
-       NORMALIZAR RESPUESTAS
-       
-       Permite que:
-       respuesta1
-       RESPUESTA1
-       Respuesta1
-       
-       sean consideradas iguales.
-    ========================================================== */
+    <!-- =====================================================
+         PANTALLA 2 - PREGUNTA 1
+    ====================================================== -->
 
-    function normalizar(texto) {
+    <section id="pantalla2" class="pantalla">
 
-        return texto
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .trim();
+        <h2>Pregunta 1</h2>
 
-    }
+        <p class="pregunta"></p>
 
+        <input
+            type="text"
+            id="respuesta1"
+            class="respuesta"
+            autocomplete="off"
+        >
 
-    /* =========================================================
-       COMPROBAR RESPUESTA
-    ========================================================== */
+        <br>
 
-    function comprobar(numero) {
+        <button
+            id="boton1"
+            type="button"
+            onclick="comprobar(1)"
+        >
+            COMPROBAR
+        </button>
 
-        const input =
-            document.getElementById("respuesta" + numero);
+        <div id="feedback1" class="feedback"></div>
 
-        const feedback =
-            document.getElementById("feedback" + numero);
-
-        const boton =
-            document.getElementById("boton" + numero);
+    </section>
 
 
-        const respuestaUsuario =
-            normalizar(input.value);
+    <!-- =====================================================
+         PANTALLA 3 - PREGUNTA 2
+    ====================================================== -->
 
-        const respuestaCorrecta =
-            normalizar(respuestasCorrectas[numero]);
+    <section id="pantalla3" class="pantalla">
 
+        <h2>Pregunta 2</h2>
 
-        /* =====================================================
-           RESPUESTA CORRECTA
-        ===================================================== */
+        <p class="pregunta"></p>
 
-        if (respuestaUsuario === respuestaCorrecta) {
+        <input
+            type="text"
+            id="respuesta2"
+            class="respuesta"
+            autocomplete="off"
+        >
 
-            feedback.textContent =
-                "♡ ¡Correcto! Puedes continuar.";
+        <br>
 
-            feedback.className =
-                "feedback correcta";
+        <button
+            id="boton2"
+            type="button"
+            onclick="comprobar(2)"
+        >
+            COMPROBAR
+        </button>
 
+        <div id="feedback2" class="feedback"></div>
 
-            /*
-               Bloqueamos el campo porque ya respondió
-               correctamente.
-            */
-
-            input.disabled = true;
-
-
-            /*
-               Cambiamos el botón para permitir avanzar.
-            */
-
-            boton.textContent =
-                numero === 5
-                    ? "VER MI SORPRESA 🌼"
-                    : "SIGUIENTE";
+    </section>
 
 
-            /*
-               Cambiamos la función del botón.
-            */
+    <!-- =====================================================
+         PANTALLA 4 - PREGUNTA 3
+    ====================================================== -->
 
-            boton.onclick = function() {
+    <section id="pantalla4" class="pantalla">
 
-                if (numero === 5) {
+        <h2>Pregunta 3</h2>
 
-                    irA(7);
+        <p class="pregunta"></p>
 
-                } else {
+        <input
+            type="text"
+            id="respuesta3"
+            class="respuesta"
+            autocomplete="off"
+        >
 
-                    /*
-                       Las pantallas de preguntas son:
+        <br>
 
-                       pregunta 1 → pantalla 2
-                       pregunta 2 → pantalla 3
-                       pregunta 3 → pantalla 4
-                       pregunta 4 → pantalla 5
-                       pregunta 5 → pantalla 6
+        <button
+            id="boton3"
+            type="button"
+            onclick="comprobar(3)"
+        >
+            COMPROBAR
+        </button>
 
-                       Por eso sumamos 1.
-                    */
+        <div id="feedback3" class="feedback"></div>
 
-                    irA(numero + 2);
+    </section>
 
-                }
 
-            };
+    <!-- =====================================================
+         PANTALLA 5 - PREGUNTA 4
+    ====================================================== -->
+
+    <section id="pantalla5" class="pantalla">
+
+        <h2>Pregunta 4</h2>
+
+        <p class="pregunta"></p>
+
+        <input
+            type="text"
+            id="respuesta4"
+            class="respuesta"
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button
+            id="boton4"
+            type="button"
+            onclick="comprobar(4)"
+        >
+            COMPROBAR
+        </button>
+
+        <div id="feedback4" class="feedback"></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PANTALLA 6 - PREGUNTA 5
+    ====================================================== -->
+
+    <section id="pantalla6" class="pantalla">
+
+        <h2>Pregunta 5</h2>
+
+        <p class="pregunta"></p>
+
+        <input
+            type="text"
+            id="respuesta5"
+            class="respuesta"
+            autocomplete="off"
+        >
+
+        <br>
+
+        <button
+            id="boton5"
+            type="button"
+            onclick="comprobar(5)"
+        >
+            COMPROBAR
+        </button>
+
+        <div id="feedback5" class="feedback"></div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PANTALLA 7 - SORPRESA
+    ====================================================== -->
+
+    <section id="pantalla7" class="pantalla">
+
+        <h1>🌼 ¡Sorpresa! 🌼</h1>
+
+        <p>
+            ¡Has respondido correctamente todas las preguntas! 💕
+        </p>
+
+    </section>
+
+
+    <script>
+
+        /* =========================================================
+           PREGUNTAS
+        ========================================================== */
+
+        const preguntas = {
+
+            1: "pregunta1",
+
+            2: "pregunta2",
+
+            3: "pregunta3",
+
+            4: "pregunta4",
+
+            5: "pregunta5"
+
+        };
+
+
+        /* =========================================================
+           RESPUESTAS CORRECTAS
+        ========================================================== */
+
+        const respuestasCorrectas = {
+
+            1: "respuesta1",
+
+            2: "respuesta2",
+
+            3: "respuesta3",
+
+            4: "respuesta4",
+
+            5: "respuesta5"
+
+        };
+
+
+        /* =========================================================
+           MOSTRAR LAS PREGUNTAS
+        ========================================================== */
+
+        document.querySelector("#pantalla2 .pregunta").textContent =
+            preguntas[1];
+
+        document.querySelector("#pantalla3 .pregunta").textContent =
+            preguntas[2];
+
+        document.querySelector("#pantalla4 .pregunta").textContent =
+            preguntas[3];
+
+        document.querySelector("#pantalla5 .pregunta").textContent =
+            preguntas[4];
+
+        document.querySelector("#pantalla6 .pregunta").textContent =
+            preguntas[5];
+
+
+        /* =========================================================
+           CAMBIAR DE VENTANA
+        ========================================================== */
+
+        function irA(numero) {
+
+            document.querySelectorAll(".pantalla").forEach(pantalla => {
+
+                pantalla.classList.remove("activa");
+
+            });
+
+
+            const siguiente =
+                document.getElementById("pantalla" + numero);
+
+
+            if (!siguiente) {
+                return;
+            }
+
+
+            siguiente.classList.add("activa");
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
 
         }
 
 
-        /* =====================================================
-           RESPUESTA INCORRECTA
-        ===================================================== */
+        /* =========================================================
+           NORMALIZAR RESPUESTAS
+           
+           Permite que:
 
-        else {
+           respuesta1
+           RESPUESTA1
+           Respuesta1
 
-            feedback.textContent =
-                "♡ Esa no es la respuesta... inténtalo otra vez.";
+           sean consideradas iguales.
+        ========================================================== */
 
-            feedback.className =
-                "feedback incorrecta";
+        function normalizar(texto) {
 
-
-            /*
-               MUY IMPORTANTE:
-
-               NO avanzamos.
-               El botón sigue siendo "COMPROBAR".
-            */
-
-            boton.textContent = "COMPROBAR";
-
-
-            /*
-               El campo sigue habilitado para que
-               pueda volver a intentarlo.
-            */
-
-            input.disabled = false;
-
-            input.focus();
+            return texto
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
 
         }
 
-    }
+
+        /* =========================================================
+           COMPROBAR RESPUESTA
+        ========================================================== */
+
+        function comprobar(numero) {
+
+            const input =
+                document.getElementById("respuesta" + numero);
+
+            const feedback =
+                document.getElementById("feedback" + numero);
+
+            const boton =
+                document.getElementById("boton" + numero);
 
 
-    /* =========================================================
-       ENTER PARA COMPROBAR
-    ========================================================== */
+            const respuestaUsuario =
+                normalizar(input.value);
 
-    document.querySelectorAll(".respuesta").forEach(input => {
+            const respuestaCorrecta =
+                normalizar(respuestasCorrectas[numero]);
 
-        input.addEventListener("keydown", function(event) {
 
-            if (event.key === "Enter") {
+            /* =====================================================
+               RESPUESTA CORRECTA
+            ===================================================== */
 
-                const numero =
-                    Number(
-                        this.id.replace("respuesta", "")
-                    );
+            if (respuestaUsuario === respuestaCorrecta) {
 
-                comprobar(numero);
+                feedback.textContent =
+                    "♡ ¡Correcto! Puedes continuar.";
+
+                feedback.className =
+                    "feedback correcta";
+
+
+                /*
+                   Bloqueamos el campo porque
+                   la respuesta ya fue correcta.
+                */
+
+                input.disabled = true;
+
+
+                /*
+                   Cambiamos el botón.
+                */
+
+                boton.textContent =
+                    numero === 5
+                        ? "VER MI SORPRESA 🌼"
+                        : "SIGUIENTE";
+
+
+                /*
+                   Cambiamos la acción del botón.
+                */
+
+                boton.onclick = function() {
+
+                    if (numero === 5) {
+
+                        irA(7);
+
+                    } else {
+
+                        irA(numero + 2);
+
+                    }
+
+                };
 
             }
 
+
+            /* =====================================================
+               RESPUESTA INCORRECTA
+
+               IMPORTANTE:
+               AQUÍ NO SE LLAMA A irA().
+
+               Por lo tanto, el usuario NO PUEDE AVANZAR.
+            ===================================================== */
+
+            else {
+
+                feedback.textContent =
+                    "♡ Esa no es la respuesta... inténtalo otra vez.";
+
+                feedback.className =
+                    "feedback incorrecta";
+
+
+                /*
+                   El botón permanece como COMPROBAR.
+                */
+
+                boton.textContent =
+                    "COMPROBAR";
+
+
+                /*
+                   Nos aseguramos de que el botón
+                   vuelva a comprobar la respuesta
+                   y NO avance.
+                */
+
+                boton.onclick = function() {
+
+                    comprobar(numero);
+
+                };
+
+
+                /*
+                   El campo permanece habilitado
+                   para permitir otro intento.
+                */
+
+                input.disabled = false;
+
+
+                /*
+                   Volvemos a colocar el cursor
+                   dentro del campo.
+                */
+
+                input.focus();
+
+            }
+
+        }
+
+
+        /* =========================================================
+           ENTER PARA COMPROBAR
+        ========================================================== */
+
+        document.querySelectorAll(".respuesta").forEach(input => {
+
+            input.addEventListener("keydown", function(event) {
+
+                if (event.key === "Enter") {
+
+                    event.preventDefault();
+
+
+                    const numero =
+                        Number(
+                            this.id.replace("respuesta", "")
+                        );
+
+
+                    comprobar(numero);
+
+                }
+
+            });
+
         });
 
-    });
+    </script>
 
-</script>
+</body>
+</html>
