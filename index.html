@@ -23,7 +23,7 @@
             padding: 20px;
         }
 
-        /* ESTRUCTURA DE VENTANAS / PANTALLAS */
+        /* ESTRUCTURA DE VENTANAS */
         .screen {
             display: none;
             flex-direction: column;
@@ -59,128 +59,123 @@
             overflow: visible;
         }
 
-        /* ================= TRANSICIONES Y ANIMACIONES ================= */
-        
-        /* Tierra y Brote bajo */
-        .part-tierra, .part-brote {
+        /* ESTADOS DE VISIBILIDAD BASE */
+        .part-tierra,
+        .part-brote,
+        .part-tallo,
+        .part-hoja-izq,
+        .part-hoja-der,
+        .part-capullo,
+        .part-petalos,
+        .part-centro,
+        .part-brillo {
             opacity: 0;
-            transform: scale(0);
-            transform-origin: 150px 340px;
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Tallo crece suavemente */
+        /* CONFIGURACIÓN DE ORIGEN PARA TRANSFORMACIONES */
+        .part-tierra, .part-brote { transform-origin: 150px 340px; }
+        .part-hoja-izq { transform-origin: 146px 250px; }
+        .part-hoja-der { transform-origin: 154px 210px; }
+        .part-capullo { transform-origin: 150px 140px; }
+        .part-petalos, .part-centro, .part-brillo { transform-origin: 150px 110px; }
+
+        /* TALLO DIBUJADO MEDIANTE STROKE-DASHOFFSET */
         .part-tallo {
             stroke-dasharray: 240;
             stroke-dashoffset: 240;
-            transition: stroke-dashoffset 1.2s ease-in-out;
-        }
-
-        /* Hojas con movimiento propio */
-        .part-hoja-izq {
-            opacity: 0;
-            transform: scale(0) rotate(-30deg);
-            transform-origin: 146px 250px;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .part-hoja-der {
-            opacity: 0;
-            transform: scale(0) rotate(30deg);
-            transform-origin: 154px 210px;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        /* Capullo */
-        .part-capullo {
-            opacity: 0;
-            transform: scale(0);
-            transform-origin: 150px 180px;
-            transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        /* Margarita Amarilla completa */
-        .part-petalos, .part-centro, .part-brillo {
-            opacity: 0;
-            transform: scale(0);
-            transform-origin: 150px 110px;
-            transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: stroke-dashoffset 0.8s ease-in-out, opacity 0.3s;
         }
 
         /* ================= ETAPAS DE CRECIMIENTO ================= */
-        
-        /* Ventana 2: Germinación en la tierra */
-        .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
 
-        /* Ventana 3: Crece el Tallo */
-        .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-3 .part-tallo { stroke-dashoffset: 0; }
+        /* Ventana 2: Tierra y Brote */
+        .stage-2 .part-tierra, 
+        .stage-2 .part-brote { 
+            opacity: 1; 
+        }
 
-        /* Ventana 4: Brotan las Hojas */
-        .stage-4 .part-tierra, .stage-4 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-4 .part-tallo { stroke-dashoffset: 0; }
-        .stage-4 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-4 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        /* Ventana 3: Tierra + Tallo completo */
+        .stage-3 .part-tierra, 
+        .stage-3 .part-brote,
+        .stage-3 .part-tallo { 
+            opacity: 1; 
+            stroke-dashoffset: 0; 
+        }
 
-        /* Ventana 5: Nace Capullo Medio */
-        .stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-5 .part-tallo { stroke-dashoffset: 70; }
-        .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-5 .part-capullo { opacity: 1; transform: scale(1); }
+        /* Ventana 4: Tallo + Hojas */
+        .stage-4 .part-tierra, 
+        .stage-4 .part-brote,
+        .stage-4 .part-tallo,
+        .stage-4 .part-hoja-izq,
+        .stage-4 .part-hoja-der { 
+            opacity: 1; 
+            stroke-dashoffset: 0; 
+        }
 
-        /* Ventana 6: Margarita Abierta (Estática) */
-        .stage-6 .part-tierra, .stage-6 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-6 .part-tallo { stroke-dashoffset: 0; }
-        .stage-6 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-6 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-6 .part-capullo { opacity: 0; transform: scale(0); }
-        .stage-6 .part-petalos, .stage-6 .part-centro { opacity: 1; transform: scale(1); }
+        /* Ventana 5: Capullo sobre el tallo */
+        .stage-5 .part-tierra, 
+        .stage-5 .part-brote,
+        .stage-5 .part-tallo,
+        .stage-5 .part-hoja-izq,
+        .stage-5 .part-hoja-der,
+        .stage-5 .part-capullo { 
+            opacity: 1; 
+            stroke-dashoffset: 0; 
+        }
 
-        /* Ventana 7: Movimiento de balanceo (Mecedor) y Brillo */
-        .stage-7 .part-tierra, .stage-7 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-7 .part-tallo { stroke-dashoffset: 0; }
-        .stage-7 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-7 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-7 .part-capullo { opacity: 0; transform: scale(0); }
-        .stage-7 .part-petalos, .stage-7 .part-centro { opacity: 1; transform: scale(1); }
-        .stage-7 .part-brillo { opacity: 0.6; transform: scale(1.2); }
+        /* Ventana 6: Flor completamente abierta (estática) */
+        .stage-6 .part-tierra, 
+        .stage-6 .part-brote,
+        .stage-6 .part-tallo,
+        .stage-6 .part-hoja-izq,
+        .stage-6 .part-hoja-der,
+        .stage-6 .part-petalos,
+        .stage-6 .part-centro { 
+            opacity: 1; 
+            stroke-dashoffset: 0; 
+        }
 
-        /* ================= ANIMACIÓN DE MECEDORA (VENTANA 7) ================= */
-        
+        /* Ventana 7: Flor abierta + Brillo + Animación de Viento */
+        .stage-7 .part-tierra, 
+        .stage-7 .part-brote,
+        .stage-7 .part-tallo,
+        .stage-7 .part-hoja-izq,
+        .stage-7 .part-hoja-der,
+        .stage-7 .part-petalos,
+        .stage-7 .part-centro { 
+            opacity: 1; 
+            stroke-dashoffset: 0; 
+        }
+
+        .stage-7 .part-brillo {
+            opacity: 0.6;
+        }
+
+        /* ================= ANIMACIONES (VENTANA 7) ================= */
         @keyframes windSway {
             0% { transform: rotate(0deg); }
-            25% { transform: rotate(4deg) translateY(-1px); }
-            50% { transform: rotate(-3deg); }
-            75% { transform: rotate(3deg) translateY(1px); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
             100% { transform: rotate(0deg); }
         }
 
-        @keyframes leafSwayLeft {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(-6deg); }
-        }
-
-        @keyframes leafSwayRight {
-            0%, 100% { transform: rotate(0deg); }
-            50% { transform: rotate(6deg); }
-        }
-
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; transform: scale(1.1); }
-            50% { opacity: 0.8; transform: scale(1.35); }
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.2); }
         }
 
         .stage-7 .flower-skeleton {
-            animation: windSway 4.5s ease-in-out infinite;
+            animation: windSway 4s ease-in-out infinite;
             transform-origin: 150px 340px;
         }
 
-        .stage-7 .part-hoja-izq { animation: leafSwayLeft 3.5s ease-in-out infinite; }
-        .stage-7 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
-        .stage-7 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
+        .stage-7 .part-brillo {
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
 
-        /* TARJETAS Y TARJETERO DE TEXTO */
+        /* TARJETAS Y BOTONES */
         .card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -229,7 +224,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 2: TRANSICIÓN 1 (GERMINACIÓN) -->
+    <!-- VENTANA 2: GERMINACIÓN -->
     <div class="screen" id="screen-2">
         <div class="flower-box stage-2" id="box-2"></div>
         <div class="card">
@@ -239,7 +234,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 3: TRANSICIÓN 2 (TALLO) -->
+    <!-- VENTANA 3: TALLO -->
     <div class="screen" id="screen-3">
         <div class="flower-box stage-3" id="box-3"></div>
         <div class="card">
@@ -249,7 +244,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 4: TRANSICIÓN 3 (HOJAS) -->
+    <!-- VENTANA 4: HOJAS -->
     <div class="screen" id="screen-4">
         <div class="flower-box stage-4" id="box-4"></div>
         <div class="card">
@@ -259,7 +254,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 5: TRANSICIÓN 4 (CAPULLO) -->
+    <!-- VENTANA 5: CAPULLO -->
     <div class="screen" id="screen-5">
         <div class="flower-box stage-5" id="box-5"></div>
         <div class="card">
@@ -269,7 +264,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 6: TRANSICIÓN 5 (FLOR ABIERTA) -->
+    <!-- VENTANA 6: FLOR ABIERTA -->
     <div class="screen" id="screen-6">
         <div class="flower-box stage-6" id="box-6"></div>
         <div class="card">
@@ -279,7 +274,7 @@
         </div>
     </div>
 
-    <!-- VENTANA 7: RESULTADO FINAL (MECIÉNDOSE DE UN LADO A OTRO) -->
+    <!-- VENTANA 7: RESULTADO FINAL CON MOVIMIENTO -->
     <div class="screen" id="screen-7">
         <div class="flower-box stage-7" id="box-7"></div>
         <div class="card">
@@ -290,7 +285,6 @@
     </div>
 
     <script>
-        // ESTRUCTURA SVG DE LA FLOR
         function getFlowerSVG() {
             return `
             <svg viewBox="0 0 300 400">
@@ -350,9 +344,9 @@
                     </g>
 
                     <g class="part-capullo">
-                        <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                        <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                        <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
+                        <path d="M 150 140 Q 138 120 150 100 Q 162 120 150 140 Z" fill="url(#yellowPetal)"/>
+                        <path d="M 144 144 Q 132 125 142 110 Q 150 130 144 144 Z" fill="#27ae60"/>
+                        <path d="M 156 144 Q 168 125 158 110 Q 150 130 156 144 Z" fill="#27ae60"/>
                     </g>
 
                     <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
@@ -384,14 +378,12 @@
             </svg>`;
         }
 
-        // CARGAR EL SVG EN LAS VENTANAS 2 A 7
         window.addEventListener('DOMContentLoaded', () => {
             for (let i = 2; i <= 7; i++) {
                 document.getElementById(`box-${i}`).innerHTML = getFlowerSVG();
             }
         });
 
-        // FUNCION PARA NAVEGAR ENTRE PANTALLAS
         function goToScreen(screenNumber) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(`screen-${screenNumber}`).classList.add('active');
