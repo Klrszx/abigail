@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Una Flor para Abigail</title>
+<title>Una Flor para Abigail - 21 de Septiembre</title>
 
 <!-- FUENTES GÓTICAS Y ROMÁNTICAS -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -68,18 +68,17 @@ body::before {
 
 /* MARCO Y CAJA DE LA FLOR */
 .flower-box {
-    width: 290px;
-    height: 350px;
-    background: radial-gradient(circle, rgba(255, 234, 167, 0.03) 0%, rgba(10, 5, 10, 0.6) 100%);
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    border-radius: 100px 100px 20px 20px;
+    width: 320px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 234, 167, 0.05) 0%, rgba(15, 15, 25, 0.8) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 0 25px rgba(0, 0, 0, 0.8), inset 0 0 15px rgba(128, 0, 32, 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     position: relative;
     overflow: hidden;
-    margin-top: 5px;
 }
 
 svg {
@@ -88,7 +87,9 @@ svg {
     overflow: visible;
 }
 
-/* TRANSICIONES SVG REVISADAS */
+/* ================= TRANSICIONES Y ANIMACIONES ================= */
+
+/* Tierra y Brote bajo */
 .part-tierra, .part-brote {
     opacity: 0;
     transform: scale(0);
@@ -96,12 +97,14 @@ svg {
     transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Tallo crece suavemente */
 .part-tallo {
-    stroke-dasharray: 260;
-    stroke-dashoffset: 260;
+    stroke-dasharray: 240;
+    stroke-dashoffset: 240;
     transition: stroke-dashoffset 1.2s ease-in-out;
 }
 
+/* Hojas con movimiento propio */
 .part-hoja-izq {
     opacity: 0;
     transform: scale(0) rotate(-30deg);
@@ -116,13 +119,15 @@ svg {
     transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
+/* Capullo posicionado a la altura justa */
 .part-capullo {
     opacity: 0;
     transform: scale(0);
-    transform-origin: 150px 110px;
+    transform-origin: 150px 180px;
     transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Margarita Amarilla completa */
 .part-petalos, .part-centro, .part-brillo {
     opacity: 0;
     transform: scale(0);
@@ -130,7 +135,8 @@ svg {
     transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* ETAPAS DE CRECIMIENTO CORREGIDAS */
+/* ================= ETAPAS DE ACTIVACIÓN ================= */
+
 .stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
 
 .stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
@@ -138,53 +144,66 @@ svg {
 
 .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
 .stage-2 .part-tallo { stroke-dashoffset: 0; }
-.stage-2 .part-hoja-izq, .stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 
 .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
-.stage-3 .part-tallo { stroke-dashoffset: 0; }
-.stage-3 .part-hoja-izq, .stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-3 .part-tallo { stroke-dashoffset: 70; }
+.stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 .stage-3 .part-capullo { opacity: 1; transform: scale(1); }
 
-.stage-4 .part-tierra, .stage-4 .part-brote { opacity: 1; transform: scale(1); }
-.stage-4 .part-tallo { stroke-dashoffset: 0; }
-.stage-4 .part-hoja-izq, .stage-4 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-4 .part-capullo { opacity: 0; transform: scale(0); }
-.stage-4 .part-petalos, .stage-4 .part-centro { opacity: 1; transform: scale(1); }
-
+.stage-4 .part-tierra, .stage-4 .part-brote,
 .stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
-.stage-5 .part-tallo { stroke-dashoffset: 0; }
-.stage-5 .part-hoja-izq, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-.stage-5 .part-capullo { opacity: 0; transform: scale(0); }
+.stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
+.stage-4 .part-hoja-izq, .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-4 .part-hoja-der, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+.stage-4 .part-capullo, .stage-5 .part-capullo { opacity: 0; transform: scale(0); }
+.stage-4 .part-petalos, .stage-4 .part-centro,
 .stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
-.stage-5 .part-brillo { opacity: 0.8; transform: scale(1.2); }
+.stage-5 .part-brillo { opacity: 0.6; transform: scale(1.2); }
 
-/* ANIMACIONES FINALES */
+/* ================= MOVIMIENTO Y REALISMO EN ETAPA 5 ================= */
+
 @keyframes windSway {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(2.5deg) translateY(-1px); }
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg) translateY(-1px); }
     50% { transform: rotate(-2deg); }
-    75% { transform: rotate(1.8deg) translateY(1px); }
+    75% { transform: rotate(2deg) translateY(1px); }
+    100% { transform: rotate(0deg); }
 }
 
 @keyframes leafSwayLeft {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(-5deg); }
+    50% { transform: rotate(-6deg); }
 }
 
 @keyframes leafSwayRight {
     0%, 100% { transform: rotate(0deg); }
-    50% { transform: rotate(5deg); }
+    50% { transform: rotate(6deg); }
 }
 
 @keyframes pulseGlow {
     0%, 100% { opacity: 0.4; transform: scale(1.1); }
-    50% { opacity: 0.9; transform: scale(1.35); }
+    50% { opacity: 0.8; transform: scale(1.35); }
 }
 
-.stage-5 .flower-skeleton { animation: windSway 4.5s ease-in-out infinite; transform-origin: 150px 340px; }
-.stage-5 .part-hoja-izq { animation: leafSwayLeft 3.5s ease-in-out infinite; }
-.stage-5 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
-.stage-5 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
+.stage-5 .flower-skeleton {
+    animation: windSway 4.5s ease-in-out infinite;
+    transform-origin: 150px 340px;
+}
+
+.stage-5 .part-hoja-izq {
+    animation: leafSwayLeft 3.5s ease-in-out infinite;
+}
+
+.stage-5 .part-hoja-der {
+    animation: leafSwayRight 4s ease-in-out infinite;
+}
+
+.stage-5 .part-brillo {
+    animation: pulseGlow 3s ease-in-out infinite;
+}
 
 /* TARJETA DE CONTENIDO */
 .card {
@@ -311,9 +330,10 @@ svg {
 </head>
 <body>
 
-<!-- REGRADIENTES SVG GLOBALES -->
+<!-- PLANTILLA TEMPLATE PARA EL SVG DE LA FLOR -->
 <svg style="display:none;">
     <defs>
+        <!-- DEGRADADOS REALISTAS -->
         <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stop-color="#27ae60"/>
             <stop offset="50%" stop-color="#2ecc71"/>
@@ -326,6 +346,7 @@ svg {
             <stop offset="100%" stop-color="#196f3d"/>
         </linearGradient>
 
+        <!-- MARGARITA AMARILLA: DEGRADADO DE PÉTALOS -->
         <radialGradient id="yellowPetal" cx="50%" cy="100%" r="100%">
             <stop offset="0%" stop-color="#f39c12" />
             <stop offset="35%" stop-color="#f1c40f" />
@@ -333,6 +354,7 @@ svg {
             <stop offset="100%" stop-color="#ffffff" />
         </radialGradient>
 
+        <!-- CENTRO CAFE/NARANJA DE MARGARITA -->
         <radialGradient id="centerMargarita" cx="40%" cy="40%" r="60%">
             <stop offset="0%" stop-color="#e67e22" />
             <stop offset="50%" stop-color="#d35400" />
@@ -340,6 +362,7 @@ svg {
             <stop offset="100%" stop-color="#4e1a07" />
         </radialGradient>
 
+        <!-- BRILLO AMARILLO 21 DE SEPTIEMBRE -->
         <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
             <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.9"/>
             <stop offset="50%" stop-color="#fdcb6e" stop-opacity="0.4"/>
@@ -348,44 +371,44 @@ svg {
     </defs>
 </svg>
 
-<!-- PLANTILLA REUTILIZABLE SVG DE LA FLOR CORREGIDA -->
 <g id="flower-svg-template" style="display:none;">
     <g class="flower-skeleton">
-        <!-- TIERRA / MACETA -->
+        <!-- TIERRA Y MACETA -->
         <g class="part-tierra">
-            <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#2c1a24"/>
-            <ellipse cx="150" cy="340" rx="60" ry="12" fill="#1c0f17"/>
-            <ellipse cx="150" cy="340" rx="54" ry="9" fill="#0d050a"/>
+            <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#34495e"/>
+            <ellipse cx="150" cy="340" rx="60" ry="12" fill="#2c3e50"/>
+            <ellipse cx="150" cy="340" rx="54" ry="9" fill="#1a252f"/>
         </g>
         
-        <!-- BROTE -->
+        <!-- BROTE EN LA TIERRA (GERMINACIÓN) -->
         <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
 
-        <!-- TALLO UNIFICADO Y CENTRADO -->
-        <path class="part-tallo" d="M 150 340 C 145 260, 155 180, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+        <!-- TALLO ORGANICO CURVO -->
+        <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
 
-        <!-- HOJAS CONECTADAS AL TALLO -->
+        <!-- HOJA IZQUIERDA CON REALISMO -->
         <g class="part-hoja-izq">
-            <path d="M 148 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 148 250 Z" fill="url(#leafGrad)"/>
-            <path d="M 148 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+            <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
+            <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
         </g>
 
+        <!-- HOJA DERECHA CON REALISMO -->
         <g class="part-hoja-der">
-            <path d="M 152 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 152 210 Z" fill="url(#leafGrad)"/>
-            <path d="M 152 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+            <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
+            <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
         </g>
 
-        <!-- CAPULLO CENTRADO EN (150, 110) -->
+        <!-- CAPULLO DE ENTORNO MEDIO -->
         <g class="part-capullo">
-            <path d="M 150 135 Q 138 115 150 90 Q 162 115 150 135 Z" fill="url(#yellowPetal)"/>
-            <path d="M 144 138 Q 132 120 142 105 Q 150 125 144 138 Z" fill="#27ae60"/>
-            <path d="M 156 138 Q 168 120 158 105 Q 150 125 156 138 Z" fill="#27ae60"/>
+            <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
+            <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
+            <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
         </g>
 
-        <!-- RESPLANDOR -->
-        <circle class="part-brillo" cx="150" cy="110" r="75" fill="url(#sunGlow)"/>
+        <!-- RESPLANDOR / BRILLO AMARILLO -->
+        <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
 
-        <!-- PÉTALOS DE MARGARITA -->
+        <!-- PÉTALOS DE MARGARITA AMARILLA -->
         <g class="part-petalos">
             <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
             <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
@@ -405,7 +428,7 @@ svg {
             <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
         </g>
 
-        <!-- CENTRO DE LA FLOR -->
+        <!-- CENTRO TEXTURIZADO -->
         <g class="part-centro">
             <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
             <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
@@ -413,76 +436,100 @@ svg {
     </g>
 </g>
 
-<!-- ================= VENTANA 1: BIENVENIDA ================= -->
+<!-- VENTANA 1: BIENVENIDA -->
 <div class="window active" id="win1">
     <h1>Para Abigail ❤️</h1>
     <p>Responde cada acertijo para hacer florecer esta margarita dorada guardada para ti.</p>
     <button class="btn" onclick="goToWindow(2)">COMENZAR</button>
 </div>
 
-<!-- ================= VENTANA 2: PREGUNTA 1 (CRECE EL TALLO) ================= -->
+<!-- VENTANA 2: PREGUNTA 1 (GERMINA Y TALLO) -->
 <div class="window" id="win2">
     <div class="flower-box stage-1" id="box-win2">
-        <svg viewBox="0 0 300 400" id="svg-win2"></svg>
+        <svg viewBox="0 0 300 400"></svg>
     </div>
     <div class="card">
         <img src="https://images.unsplash.com/photo-1518895949257-7621c3c786d7?w=500" class="question-img" alt="Imagen 1">
-        <div class="question-text">¿Cuál es nuestro lugar especial favorito?</div>
+        <div class="question-text" id="pregunta1-display">Cargando pregunta...</div>
         <input type="text" id="ans1" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(1, 'parque', 'v2-next', 'box-win2', 1)">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(1, 'v2-next', 'box-win2', 1)">Comprobar</button>
         <div id="feedback1" class="feedback-msg"></div>
         <button id="v2-next" class="btn btn-next" onclick="goToWindow(3)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 3: PREGUNTA 2 (SALEN HOJAS) ================= -->
+<!-- VENTANA 3: PREGUNTA 2 (HOJAS) -->
 <div class="window" id="win3">
     <div class="flower-box stage-2" id="box-win3">
-        <svg viewBox="0 0 300 400" id="svg-win3"></svg>
+        <svg viewBox="0 0 300 400"></svg>
     </div>
     <div class="card">
         <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=500" class="question-img" alt="Imagen 2">
-        <div class="question-text">¿Qué canción siempre nos recuerda uno al otro?</div>
+        <div class="question-text" id="pregunta2-display">Cargando pregunta...</div>
         <input type="text" id="ans2" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(2, 'musica', 'v3-next', 'box-win3', 2)">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(2, 'v3-next', 'box-win3', 2)">Comprobar</button>
         <div id="feedback2" class="feedback-msg"></div>
         <button id="v3-next" class="btn btn-next" onclick="goToWindow(4)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 4: PREGUNTA 3 (NACE EL CAPULLO) ================= -->
+<!-- VENTANA 4: PREGUNTA 3 (CAPULLO MEDIO) -->
 <div class="window" id="win4">
     <div class="flower-box stage-3" id="box-win4">
-        <svg viewBox="0 0 300 400" id="svg-win4"></svg>
+        <svg viewBox="0 0 300 400"></svg>
     </div>
     <div class="card">
         <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=500" class="question-img" alt="Imagen 3">
-        <div class="question-text">¿En qué mes nos conocimos?</div>
+        <div class="question-text" id="pregunta3-display">Cargando pregunta...</div>
         <input type="text" id="ans3" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(3, 'septiembre', 'v4-next', 'box-win4', 3)">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(3, 'v4-next', 'box-win4', 3)">Comprobar</button>
         <div id="feedback3" class="feedback-msg"></div>
         <button id="v4-next" class="btn btn-next" onclick="goToWindow(5)">Siguiente ➔</button>
     </div>
 </div>
 
-<!-- ================= VENTANA 5: PREGUNTA 4 (FLORECIMIENTO COMPLETO) ================= -->
+<!-- VENTANA 5: PREGUNTA 4 (FLORECIMIENTO / ETAPA 5) -->
 <div class="window" id="win5">
     <div class="flower-box stage-5" id="box-win5">
-        <svg viewBox="0 0 300 400" id="svg-win5"></svg>
+        <svg viewBox="0 0 300 400"></svg>
     </div>
     <div class="card">
         <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" class="question-img" alt="Imagen 4">
-        <div class="question-text">¿Cual es la palabra secreta de nuestro amor?</div>
+        <div class="question-text" id="pregunta4-display">Cargando pregunta...</div>
         <input type="text" id="ans4" class="answer-input" placeholder="Escribe tu respuesta aquí...">
-        <button class="btn" onclick="checkAnswer(4, 'siempre', 'v5-next', 'box-win5', 5)">Comprobar</button>
+        <button class="btn" onclick="checkAnswer(4, 'v5-next', 'box-win5', 5)">Comprobar</button>
         <div id="feedback4" class="feedback-msg"></div>
         <button id="v5-next" class="btn btn-next" onclick="alert('¡Has completado el camino de la flor para Abigail! ❤️')">Finalizar ❤️</button>
     </div>
 </div>
 
 <script>
-// Clona la flor corregida a todos los contenedores SVG
+// ==========================================
+// CONFIGURACIÓN DE PREGUNTAS Y RESPUESTAS
+// ==========================================
+const config = {
+    pregunta1: "¿Cuál es nuestro lugar especial favorito?",
+    respuesta1: "parque",
+
+    pregunta2: "¿Qué canción siempre nos recuerda uno al otro?",
+    respuesta2: "musica",
+
+    pregunta3: "¿En qué mes nos conocimos?",
+    respuesta3: "septiembre",
+
+    pregunta4: "¿Cuál es la palabra secreta de nuestro amor?",
+    respuesta4: "siempre"
+};
+
+// Cargar preguntas en el HTML y duplicar plantilla del SVG
 window.addEventListener('DOMContentLoaded', () => {
+    // Asignar los textos de las preguntas desde la configuración
+    document.getElementById('pregunta1-display').textContent = config.pregunta1;
+    document.getElementById('pregunta2-display').textContent = config.pregunta2;
+    document.getElementById('pregunta3-display').textContent = config.pregunta3;
+    document.getElementById('pregunta4-display').textContent = config.pregunta4;
+
+    // Copiar la estructura del SVG
     const template = document.getElementById('flower-svg-template').innerHTML;
     document.querySelectorAll('.flower-box svg').forEach(svg => {
         svg.innerHTML = template;
@@ -494,18 +541,19 @@ function goToWindow(winNumber) {
     document.getElementById('win' + winNumber).classList.add('active');
 }
 
-function checkAnswer(step, correctAnswer, nextBtnId, boxId, nextStage) {
+function checkAnswer(step, nextBtnId, boxId, nextStage) {
     const input = document.getElementById('ans' + step);
     const feedback = document.getElementById('feedback' + step);
     const btnNext = document.getElementById(nextBtnId);
     const flowerBox = document.getElementById(boxId);
+
+    const correctAnswer = config['respuesta' + step];
 
     if (input.value.trim().toLowerCase() === correctAnswer.toLowerCase()) {
         feedback.style.color = "#2ecc71";
         feedback.textContent = "¡Correcto! La margarita sigue floreciendo...";
         btnNext.style.display = "inline-block";
         
-        // Sube a la siguiente etapa de animación
         flowerBox.className = "flower-box stage-" + nextStage;
     } else {
         feedback.style.color = "#e74c3c";
