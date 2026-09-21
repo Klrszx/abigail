@@ -20,11 +20,10 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 20px;
             padding: 20px;
         }
 
-        /* VISTAS/SECCIONES */
+        /* PANTALLAS Y VENTANAS */
         .screen {
             display: none;
             flex-direction: column;
@@ -32,14 +31,14 @@
             justify-content: center;
             gap: 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
         }
 
         .screen.active {
             display: flex;
         }
 
-        /* CONTENEDOR PRINCIPAL DE LA FLOR */
+        /* CONTENEDOR DE LA FLOR */
         .flower-box {
             width: 320px;
             height: 400px;
@@ -60,9 +59,8 @@
             overflow: visible;
         }
 
-        /* ================= TRANSICIONES Y ANIMACIONES ================= */
+        /* ================= TRANSICIONES Y PARTES ================= */
         
-        /* Tierra y Brote bajo */
         .part-tierra, .part-brote {
             opacity: 0;
             transform: scale(0);
@@ -70,14 +68,12 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Tallo crece suavemente */
         .part-tallo {
             stroke-dasharray: 240;
             stroke-dashoffset: 240;
             transition: stroke-dashoffset 1.2s ease-in-out;
         }
 
-        /* Hojas con movimiento propio */
         .part-hoja-izq {
             opacity: 0;
             transform: scale(0) rotate(-30deg);
@@ -92,7 +88,6 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Capullo posicionado a la altura justa */
         .part-capullo {
             opacity: 0;
             transform: scale(0);
@@ -100,7 +95,6 @@
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* Margarita Amarilla completa */
         .part-petalos, .part-centro, .part-brillo {
             opacity: 0;
             transform: scale(0);
@@ -108,29 +102,24 @@
             transition: all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        /* ================= ETAPAS DE ACTIVACIÓN ================= */
+        /* ================= ETAPAS DE CRECIMIENTO ================= */
         
-        /* Etapa 0: Germinación en la tierra */
         .stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
 
-        /* Etapa 1: Crece Tallo */
         .stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
         .stage-1 .part-tallo { stroke-dashoffset: 0; }
 
-        /* Etapa 2: Brotan Hojas Realistas */
         .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
         .stage-2 .part-tallo { stroke-dashoffset: 0; }
         .stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
         .stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 
-        /* Etapa 3: Nace Capullo en posición media */
         .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
         .stage-3 .part-tallo { stroke-dashoffset: 70; }
         .stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
         .stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
         .stage-3 .part-capullo { opacity: 1; transform: scale(1); }
 
-        /* Etapa 4 y 5: Margarita Abierta en la cima */
         .stage-4 .part-tierra, .stage-4 .part-brote,
         .stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
         .stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
@@ -141,8 +130,7 @@
         .stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
         .stage-5 .part-brillo { opacity: 0.6; transform: scale(1.2); }
 
-        /* ================= MOVIMIENTO Y REALISMO EN ETAPA 5 ================= */
-        
+        /* ANIMACIÓN FINAL ETAPA 5 */
         @keyframes windSway {
             0% { transform: rotate(0deg); }
             25% { transform: rotate(3deg) translateY(-1px); }
@@ -171,19 +159,11 @@
             transform-origin: 150px 340px;
         }
 
-        .stage-5 .part-hoja-izq {
-            animation: leafSwayLeft 3.5s ease-in-out infinite;
-        }
+        .stage-5 .part-hoja-izq { animation: leafSwayLeft 3.5s ease-in-out infinite; }
+        .stage-5 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
+        .stage-5 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
 
-        .stage-5 .part-hoja-der {
-            animation: leafSwayRight 4s ease-in-out infinite;
-        }
-
-        .stage-5 .part-brillo {
-            animation: pulseGlow 3s ease-in-out infinite;
-        }
-
-        /* TARJETA DE TRIVIA Y CONTROLES */
+        /* TARJETA E INPUTS */
         .card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -195,7 +175,7 @@
         }
 
         .card h2 {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-bottom: 15px;
             color: #ffeaa7;
         }
@@ -205,7 +185,7 @@
             padding: 10px;
             border-radius: 10px;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             color: #fff;
             font-size: 1rem;
             text-align: center;
@@ -221,7 +201,7 @@
             background: #f1c40f;
             color: #2c3e50;
             border: none;
-            padding: 10px 20px;
+            padding: 10px 22px;
             border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
@@ -255,107 +235,14 @@
 </head>
 <body>
 
-    <!-- TEMPLATE DEL SVG DE LA FLOR PARA REUTILIZAR EXACTAMENTE IGUAL -->
-    <template id="flower-svg-template">
-        <svg viewBox="0 0 300 400">
-            <defs>
-                <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
-                    <stop offset="0%" stop-color="#27ae60"/>
-                    <stop offset="50%" stop-color="#2ecc71"/>
-                    <stop offset="100%" stop-color="#1e8449"/>
-                </linearGradient>
-
-                <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#52be80"/>
-                    <stop offset="60%" stop-color="#27ae60"/>
-                    <stop offset="100%" stop-color="#196f3d"/>
-                </linearGradient>
-
-                <radialGradient id="yellowPetal" cx="50%" cy="100%" r="100%">
-                    <stop offset="0%" stop-color="#f39c12" />
-                    <stop offset="35%" stop-color="#f1c40f" />
-                    <stop offset="85%" stop-color="#fffa65" />
-                    <stop offset="100%" stop-color="#ffffff" />
-                </radialGradient>
-
-                <radialGradient id="centerMargarita" cx="40%" cy="40%" r="60%">
-                    <stop offset="0%" stop-color="#e67e22" />
-                    <stop offset="50%" stop-color="#d35400" />
-                    <stop offset="85%" stop-color="#7e2a0c" />
-                    <stop offset="100%" stop-color="#4e1a07" />
-                </radialGradient>
-
-                <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
-                    <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.9"/>
-                    <stop offset="50%" stop-color="#fdcb6e" stop-opacity="0.4"/>
-                    <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
-                </radialGradient>
-            </defs>
-
-            <g class="flower-skeleton">
-                <g class="part-tierra">
-                    <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#34495e"/>
-                    <ellipse cx="150" cy="340" rx="60" ry="12" fill="#2c3e50"/>
-                    <ellipse cx="150" cy="340" rx="54" ry="9" fill="#1a252f"/>
-                </g>
-                
-                <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
-
-                <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
-
-                <g class="part-hoja-izq">
-                    <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
-                    <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-hoja-der">
-                    <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
-                    <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
-                </g>
-
-                <g class="part-capullo">
-                    <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
-                    <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
-                    <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
-                </g>
-
-                <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
-
-                <g class="part-petalos">
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
-                    <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
-                </g>
-
-                <g class="part-centro">
-                    <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
-                    <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
-                </g>
-            </g>
-        </svg>
-    </template>
-
-    <!-- INICIO -->
+    <!-- PANTALLA INICIAL DE BIENVENIDA -->
     <div class="screen active" id="screen-0">
-        <h1 style="color: #ffeaa7;">21 de Septiembre 🌼</h1>
-        <p style="text-align: center; color: #ccc;">Responde a los acertijos para hacer florecer la margarita.</p>
+        <h1 style="color: #ffeaa7; font-size: 1.8rem; text-align: center;">Para Abigail ❤️</h1>
+        <p style="text-align: center; color: #ccc;">Responde las preguntas para hacer florecer la margarita.</p>
         <button onclick="goToScreen(1)">Comenzar</button>
     </div>
 
-    <!-- PREGUNTA 1 (ETAPA 1: TALLO) -->
+    <!-- PREGUNTA 1 -->
     <div class="screen" id="screen-1">
         <div class="flower-box stage-0" id="box-1"></div>
         <div class="card">
@@ -367,7 +254,7 @@
         </div>
     </div>
 
-    <!-- PREGUNTA 2 (ETAPA 2: HOJAS) -->
+    <!-- PREGUNTA 2 -->
     <div class="screen" id="screen-2">
         <div class="flower-box stage-1" id="box-2"></div>
         <div class="card">
@@ -379,7 +266,7 @@
         </div>
     </div>
 
-    <!-- PREGUNTA 3 (ETAPA 3: CAPULLO) -->
+    <!-- PREGUNTA 3 -->
     <div class="screen" id="screen-3">
         <div class="flower-box stage-2" id="box-3"></div>
         <div class="card">
@@ -391,7 +278,7 @@
         </div>
     </div>
 
-    <!-- PREGUNTA 4 (ETAPA 5: FLOR COMPLETA EN MOVIMIENTO) -->
+    <!-- PREGUNTA 4 -->
     <div class="screen" id="screen-4">
         <div class="flower-box stage-3" id="box-4"></div>
         <div class="card">
@@ -399,7 +286,7 @@
             <input type="text" id="ans-4" placeholder="Escribe tu respuesta...">
             <button onclick="checkAnswer(4, 5)">Verificar</button>
             <div class="feedback" id="fb-4"></div>
-            <button class="btn-next" id="next-4" onclick="alert('¡Felicidades! La flor ha florecido completamente. ✨🌼')">¡Finalizar! ❤️</button>
+            <button class="btn-next" id="next-4" onclick="alert('¡Felicidades! La flor ha florecido completamente para Abigail ❤️')">¡Finalizar! ❤️</button>
         </div>
     </div>
 
@@ -419,15 +306,104 @@
             respuesta4: "amor"
         };
 
-        // Inicializar el SVG dentro de los contenedores de flor
+        // CÓDIGO ESTRUCTURAL COMPLETO DE LA FLOR (SVG)
+        function getFlowerSVG() {
+            return `
+            <svg viewBox="0 0 300 400">
+                <defs>
+                    <linearGradient id="stemGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="#27ae60"/>
+                        <stop offset="50%" stop-color="#2ecc71"/>
+                        <stop offset="100%" stop-color="#1e8449"/>
+                    </linearGradient>
+
+                    <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#52be80"/>
+                        <stop offset="60%" stop-color="#27ae60"/>
+                        <stop offset="100%" stop-color="#196f3d"/>
+                    </linearGradient>
+
+                    <radialGradient id="yellowPetal" cx="50%" cy="100%" r="100%">
+                        <stop offset="0%" stop-color="#f39c12" />
+                        <stop offset="35%" stop-color="#f1c40f" />
+                        <stop offset="85%" stop-color="#fffa65" />
+                        <stop offset="100%" stop-color="#ffffff" />
+                    </radialGradient>
+
+                    <radialGradient id="centerMargarita" cx="40%" cy="40%" r="60%">
+                        <stop offset="0%" stop-color="#e67e22" />
+                        <stop offset="50%" stop-color="#d35400" />
+                        <stop offset="85%" stop-color="#7e2a0c" />
+                        <stop offset="100%" stop-color="#4e1a07" />
+                    </radialGradient>
+
+                    <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#ffeaa7" stop-opacity="0.9"/>
+                        <stop offset="50%" stop-color="#fdcb6e" stop-opacity="0.4"/>
+                        <stop offset="100%" stop-color="#fdcb6e" stop-opacity="0"/>
+                    </radialGradient>
+                </defs>
+
+                <g class="flower-skeleton">
+                    <g class="part-tierra">
+                        <path d="M 90 340 Q 150 325 210 340 L 198 375 Q 150 385 102 375 Z" fill="#34495e"/>
+                        <ellipse cx="150" cy="340" rx="60" ry="12" fill="#2c3e50"/>
+                        <ellipse cx="150" cy="340" rx="54" ry="9" fill="#1a252f"/>
+                    </g>
+                    
+                    <path class="part-brote" d="M 146 338 Q 150 326 154 338 Z" fill="#2ecc71"/>
+
+                    <path class="part-tallo" d="M 150 340 C 142 260, 158 190, 150 110" fill="none" stroke="url(#stemGrad)" stroke-width="7" stroke-linecap="round"/>
+
+                    <g class="part-hoja-izq">
+                        <path d="M 146 250 C 100 240, 75 200, 85 175 C 115 190, 138 220, 146 250 Z" fill="url(#leafGrad)"/>
+                        <path d="M 146 250 Q 115 215 88 178" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+                    </g>
+
+                    <g class="part-hoja-der">
+                        <path d="M 154 210 C 200 200, 225 160, 215 135 C 185 150, 162 180, 154 210 Z" fill="url(#leafGrad)"/>
+                        <path d="M 154 210 Q 185 175 212 138" fill="none" stroke="#196f3d" stroke-width="1.5" opacity="0.7"/>
+                    </g>
+
+                    <g class="part-capullo">
+                        <path d="M 150 180 Q 138 150 150 130 Q 162 150 150 180 Z" fill="url(#yellowPetal)"/>
+                        <path d="M 144 184 Q 132 165 142 150 Q 150 170 144 184 Z" fill="#27ae60"/>
+                        <path d="M 156 184 Q 168 165 158 150 Q 150 170 156 184 Z" fill="#27ae60"/>
+                    </g>
+
+                    <circle class="part-brillo" cx="150" cy="110" r="70" fill="url(#sunGlow)"/>
+
+                    <g class="part-petalos">
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(0 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(22.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(45 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(67.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(90 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(112.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(135 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(157.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(180 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(202.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(225 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(247.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(270 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(292.5 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(315 150 110)"/>
+                        <ellipse cx="150" cy="62" rx="10" ry="38" fill="url(#yellowPetal)" transform="rotate(337.5 150 110)"/>
+                    </g>
+
+                    <g class="part-centro">
+                        <circle cx="150" cy="110" r="22" fill="url(#centerMargarita)"/>
+                        <circle cx="150" cy="110" r="18" fill="none" stroke="#f39c12" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    </g>
+                </g>
+            </svg>`;
+        }
+
+        // Cargar SVG en cada caja al iniciar
         window.addEventListener('DOMContentLoaded', () => {
-            const template = document.getElementById('flower-svg-template').content;
-            
             for (let i = 1; i <= 4; i++) {
-                const box = document.getElementById(`box-${i}`);
-                box.appendChild(template.cloneNode(true));
-                
-                // Cargar texto de pregunta
+                document.getElementById(`box-${i}`).innerHTML = getFlowerSVG();
                 document.getElementById(`p${i}-text`).textContent = quizData[`pregunta${i}`];
             }
         });
@@ -438,7 +414,7 @@
             document.getElementById(`screen-${screenNumber}`).classList.add('active');
         }
 
-        // Evaluar la respuesta
+        // Validar respuesta
         function checkAnswer(step, nextStage) {
             const userAns = document.getElementById(`ans-${step}`).value.trim().toLowerCase();
             const correctAns = quizData[`respuesta${step}`].toLowerCase();
@@ -450,8 +426,6 @@
                 feedback.style.color = "#2ecc71";
                 feedback.textContent = "¡Correcto! La flor sigue creciendo...";
                 nextBtn.style.display = "inline-block";
-                
-                // Aplicar el cambio de etapa a la flor
                 flowerBox.className = `flower-box stage-${nextStage}`;
             } else {
                 feedback.style.color = "#e74c3c";
