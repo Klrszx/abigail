@@ -23,7 +23,7 @@
             padding: 20px;
         }
 
-        /* PANTALLAS Y VENTANAS */
+        /* ESTRUCTURA DE VENTANAS / PANTALLAS */
         .screen {
             display: none;
             flex-direction: column;
@@ -38,7 +38,7 @@
             display: flex;
         }
 
-        /* CONTENEDOR DE LA FLOR */
+        /* CONTENEDOR PRINCIPAL DE LA FLOR */
         .flower-box {
             width: 320px;
             height: 400px;
@@ -59,8 +59,9 @@
             overflow: visible;
         }
 
-        /* ================= TRANSICIONES Y PARTES ================= */
+        /* ================= TRANSICIONES Y ANIMACIONES ================= */
         
+        /* Tierra y Brote bajo */
         .part-tierra, .part-brote {
             opacity: 0;
             transform: scale(0);
@@ -68,12 +69,14 @@
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        /* Tallo crece suavemente */
         .part-tallo {
             stroke-dasharray: 240;
             stroke-dashoffset: 240;
             transition: stroke-dashoffset 1.2s ease-in-out;
         }
 
+        /* Hojas con movimiento propio */
         .part-hoja-izq {
             opacity: 0;
             transform: scale(0) rotate(-30deg);
@@ -88,6 +91,7 @@
             transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
+        /* Capullo */
         .part-capullo {
             opacity: 0;
             transform: scale(0);
@@ -95,6 +99,7 @@
             transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
+        /* Margarita Amarilla completa */
         .part-petalos, .part-centro, .part-brillo {
             opacity: 0;
             transform: scale(0);
@@ -104,38 +109,50 @@
 
         /* ================= ETAPAS DE CRECIMIENTO ================= */
         
-        .stage-0 .part-tierra, .stage-0 .part-brote { opacity: 1; transform: scale(1); }
-
-        .stage-1 .part-tierra, .stage-1 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-1 .part-tallo { stroke-dashoffset: 0; }
-
+        /* Ventana 2: Germinación en la tierra */
         .stage-2 .part-tierra, .stage-2 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-2 .part-tallo { stroke-dashoffset: 0; }
-        .stage-2 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-2 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
 
+        /* Ventana 3: Crece el Tallo */
         .stage-3 .part-tierra, .stage-3 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-3 .part-tallo { stroke-dashoffset: 70; }
-        .stage-3 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-3 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-3 .part-capullo { opacity: 1; transform: scale(1); }
+        .stage-3 .part-tallo { stroke-dashoffset: 0; }
 
-        .stage-4 .part-tierra, .stage-4 .part-brote,
+        /* Ventana 4: Brotan las Hojas */
+        .stage-4 .part-tierra, .stage-4 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-4 .part-tallo { stroke-dashoffset: 0; }
+        .stage-4 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-4 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+
+        /* Ventana 5: Nace Capullo Medio */
         .stage-5 .part-tierra, .stage-5 .part-brote { opacity: 1; transform: scale(1); }
-        .stage-4 .part-tallo, .stage-5 .part-tallo { stroke-dashoffset: 0; }
-        .stage-4 .part-hoja-izq, .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-4 .part-hoja-der, .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
-        .stage-4 .part-capullo, .stage-5 .part-capullo { opacity: 0; transform: scale(0); }
-        .stage-4 .part-petalos, .stage-4 .part-centro,
-        .stage-5 .part-petalos, .stage-5 .part-centro { opacity: 1; transform: scale(1); }
-        .stage-5 .part-brillo { opacity: 0.6; transform: scale(1.2); }
+        .stage-5 .part-tallo { stroke-dashoffset: 70; }
+        .stage-5 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-5 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-5 .part-capullo { opacity: 1; transform: scale(1); }
 
-        /* ANIMACIÓN FINAL ETAPA 5 */
+        /* Ventana 6: Margarita Abierta (Estática) */
+        .stage-6 .part-tierra, .stage-6 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-6 .part-tallo { stroke-dashoffset: 0; }
+        .stage-6 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-6 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-6 .part-capullo { opacity: 0; transform: scale(0); }
+        .stage-6 .part-petalos, .stage-6 .part-centro { opacity: 1; transform: scale(1); }
+
+        /* Ventana 7: Movimiento de balanceo (Mecedor) y Brillo */
+        .stage-7 .part-tierra, .stage-7 .part-brote { opacity: 1; transform: scale(1); }
+        .stage-7 .part-tallo { stroke-dashoffset: 0; }
+        .stage-7 .part-hoja-izq { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-7 .part-hoja-der { opacity: 1; transform: scale(1) rotate(0deg); }
+        .stage-7 .part-capullo { opacity: 0; transform: scale(0); }
+        .stage-7 .part-petalos, .stage-7 .part-centro { opacity: 1; transform: scale(1); }
+        .stage-7 .part-brillo { opacity: 0.6; transform: scale(1.2); }
+
+        /* ================= ANIMACIÓN DE MECEDORA (VENTANA 7) ================= */
+        
         @keyframes windSway {
             0% { transform: rotate(0deg); }
-            25% { transform: rotate(3deg) translateY(-1px); }
-            50% { transform: rotate(-2deg); }
-            75% { transform: rotate(2deg) translateY(1px); }
+            25% { transform: rotate(4deg) translateY(-1px); }
+            50% { transform: rotate(-3deg); }
+            75% { transform: rotate(3deg) translateY(1px); }
             100% { transform: rotate(0deg); }
         }
 
@@ -154,16 +171,16 @@
             50% { opacity: 0.8; transform: scale(1.35); }
         }
 
-        .stage-5 .flower-skeleton {
+        .stage-7 .flower-skeleton {
             animation: windSway 4.5s ease-in-out infinite;
             transform-origin: 150px 340px;
         }
 
-        .stage-5 .part-hoja-izq { animation: leafSwayLeft 3.5s ease-in-out infinite; }
-        .stage-5 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
-        .stage-5 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
+        .stage-7 .part-hoja-izq { animation: leafSwayLeft 3.5s ease-in-out infinite; }
+        .stage-7 .part-hoja-der { animation: leafSwayRight 4s ease-in-out infinite; }
+        .stage-7 .part-brillo { animation: pulseGlow 3s ease-in-out infinite; }
 
-        /* TARJETA E INPUTS */
+        /* TARJETAS Y TARJETERO DE TEXTO */
         .card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -175,26 +192,9 @@
         }
 
         .card h2 {
-            font-size: 1.15rem;
-            margin-bottom: 15px;
-            color: #ffeaa7;
-        }
-
-        input[type="text"] {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(0, 0, 0, 0.5);
-            color: #fff;
-            font-size: 1rem;
-            text-align: center;
-            outline: none;
+            font-size: 1.2rem;
             margin-bottom: 12px;
-        }
-
-        input[type="text"]:focus {
-            border-color: #f1c40f;
+            color: #ffeaa7;
         }
 
         button {
@@ -214,99 +214,83 @@
             color: white;
             transform: scale(1.05);
         }
-
-        .feedback {
-            margin-top: 10px;
-            font-size: 0.9rem;
-            min-height: 20px;
-        }
-
-        .btn-next {
-            background: #2ecc71;
-            color: white;
-            margin-top: 10px;
-            display: none;
-        }
-
-        .btn-next:hover {
-            background: #27ae60;
-        }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA INICIAL DE BIENVENIDA -->
-    <div class="screen active" id="screen-0">
-        <h1 style="color: #ffeaa7; font-size: 1.8rem; text-align: center;">Para Abigail ❤️</h1>
-        <p style="text-align: center; color: #ccc;">Responde las preguntas para hacer florecer la margarita.</p>
-        <button onclick="goToScreen(1)">Comenzar</button>
-    </div>
-
-    <!-- PREGUNTA 1 -->
-    <div class="screen" id="screen-1">
-        <div class="flower-box stage-0" id="box-1"></div>
-        <div class="card">
-            <h2 id="p1-text"></h2>
-            <input type="text" id="ans-1" placeholder="Escribe tu respuesta...">
-            <button onclick="checkAnswer(1, 1)">Verificar</button>
-            <div class="feedback" id="fb-1"></div>
-            <button class="btn-next" id="next-1" onclick="goToScreen(2)">Siguiente ➔</button>
+    <!-- VENTANA 1: BIENVENIDA -->
+    <div class="screen active" id="screen-1">
+        <div class="card" style="padding: 40px 20px;">
+            <h1 style="color: #ffeaa7; font-size: 1.8rem; margin-bottom: 15px;">¡Bienvenido/a! 🌼</h1>
+            <p style="color: #ccc; margin-bottom: 25px; line-height: 1.5;">
+                Acompaña el proceso de crecimiento de esta linda margarita amarilla paso a paso.
+            </p>
+            <button onclick="goToScreen(2)">Comenzar ➔</button>
         </div>
     </div>
 
-    <!-- PREGUNTA 2 -->
+    <!-- VENTANA 2: TRANSICIÓN 1 (GERMINACIÓN) -->
     <div class="screen" id="screen-2">
-        <div class="flower-box stage-1" id="box-2"></div>
+        <div class="flower-box stage-2" id="box-2"></div>
         <div class="card">
-            <h2 id="p2-text"></h2>
-            <input type="text" id="ans-2" placeholder="Escribe tu respuesta...">
-            <button onclick="checkAnswer(2, 2)">Verificar</button>
-            <div class="feedback" id="fb-2"></div>
-            <button class="btn-next" id="next-2" onclick="goToScreen(3)">Siguiente ➔</button>
+            <h2>Paso 1: La Semilla</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">El pequeño brote comienza a salir de la tierra.</p>
+            <button onclick="goToScreen(3)">Siguiente ➔</button>
         </div>
     </div>
 
-    <!-- PREGUNTA 3 -->
+    <!-- VENTANA 3: TRANSICIÓN 2 (TALLO) -->
     <div class="screen" id="screen-3">
-        <div class="flower-box stage-2" id="box-3"></div>
+        <div class="flower-box stage-3" id="box-3"></div>
         <div class="card">
-            <h2 id="p3-text"></h2>
-            <input type="text" id="ans-3" placeholder="Escribe tu respuesta...">
-            <button onclick="checkAnswer(3, 3)">Verificar</button>
-            <div class="feedback" id="fb-3"></div>
-            <button class="btn-next" id="next-3" onclick="goToScreen(4)">Siguiente ➔</button>
+            <h2>Paso 2: El Tallo</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">El tallo crece fuerte buscando la luz del sol.</p>
+            <button onclick="goToScreen(4)">Siguiente ➔</button>
         </div>
     </div>
 
-    <!-- PREGUNTA 4 -->
+    <!-- VENTANA 4: TRANSICIÓN 3 (HOJAS) -->
     <div class="screen" id="screen-4">
-        <div class="flower-box stage-3" id="box-4"></div>
+        <div class="flower-box stage-4" id="box-4"></div>
         <div class="card">
-            <h2 id="p4-text"></h2>
-            <input type="text" id="ans-4" placeholder="Escribe tu respuesta...">
-            <button onclick="checkAnswer(4, 5)">Verificar</button>
-            <div class="feedback" id="fb-4"></div>
-            <button class="btn-next" id="next-4" onclick="alert('¡Felicidades! La flor ha florecido completamente para Abigail ❤️')">¡Finalizar! ❤️</button>
+            <h2>Paso 3: Las Hojas</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">Aparecen las primeras hojas verdes en los costados.</p>
+            <button onclick="goToScreen(5)">Siguiente ➔</button>
+        </div>
+    </div>
+
+    <!-- VENTANA 5: TRANSICIÓN 4 (CAPULLO) -->
+    <div class="screen" id="screen-5">
+        <div class="flower-box stage-5" id="box-5"></div>
+        <div class="card">
+            <h2>Paso 4: El Capullo</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">Un capullo se prepara para abrir sus pétalos.</p>
+            <button onclick="goToScreen(6)">Siguiente ➔</button>
+        </div>
+    </div>
+
+    <!-- VENTANA 6: TRANSICIÓN 5 (FLOR ABIERTA) -->
+    <div class="screen" id="screen-6">
+        <div class="flower-box stage-6" id="box-6"></div>
+        <div class="card">
+            <h2>Paso 5: La Floración</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">La margarita amarilla se despliega por completo.</p>
+            <button onclick="goToScreen(7)">¡Ver resultado final! ✨</button>
+        </div>
+    </div>
+
+    <!-- VENTANA 7: RESULTADO FINAL (MECIÉNDOSE DE UN LADO A OTRO) -->
+    <div class="screen" id="screen-7">
+        <div class="flower-box stage-7" id="box-7"></div>
+        <div class="card">
+            <h2>¡Margarita Completa! 🌼✨</h2>
+            <p style="color: #ccc; margin-bottom: 15px;">La flor se mece libremente con la brisa del viento.</p>
+            <button onclick="goToScreen(1)">🔄 Reiniciar</button>
         </div>
     </div>
 
     <script>
-        // CONFIGURACIÓN DE PREGUNTAS Y RESPUESTAS
-        const quizData = {
-            pregunta1: "¿Cuál es tu lugar favorito?",
-            respuesta1: "parque",
-
-            pregunta2: "¿Cuál es tu color favorito?",
-            respuesta2: "amarillo",
-
-            pregunta3: "¿En qué mes estamos?",
-            respuesta3: "septiembre",
-
-            pregunta4: "¿Cuál es la palabra secreta?",
-            respuesta4: "amor"
-        };
-
-        // CÓDIGO ESTRUCTURAL COMPLETO DE LA FLOR (SVG)
+        // ESTRUCTURA SVG DE LA FLOR
         function getFlowerSVG() {
             return `
             <svg viewBox="0 0 300 400">
@@ -400,37 +384,17 @@
             </svg>`;
         }
 
-        // Cargar SVG en cada caja al iniciar
+        // CARGAR EL SVG EN LAS VENTANAS 2 A 7
         window.addEventListener('DOMContentLoaded', () => {
-            for (let i = 1; i <= 4; i++) {
+            for (let i = 2; i <= 7; i++) {
                 document.getElementById(`box-${i}`).innerHTML = getFlowerSVG();
-                document.getElementById(`p${i}-text`).textContent = quizData[`pregunta${i}`];
             }
         });
 
-        // Cambiar entre pantallas
+        // FUNCION PARA NAVEGAR ENTRE PANTALLAS
         function goToScreen(screenNumber) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(`screen-${screenNumber}`).classList.add('active');
-        }
-
-        // Validar respuesta
-        function checkAnswer(step, nextStage) {
-            const userAns = document.getElementById(`ans-${step}`).value.trim().toLowerCase();
-            const correctAns = quizData[`respuesta${step}`].toLowerCase();
-            const feedback = document.getElementById(`fb-${step}`);
-            const nextBtn = document.getElementById(`next-${step}`);
-            const flowerBox = document.getElementById(`box-${step}`);
-
-            if (userAns === correctAns) {
-                feedback.style.color = "#2ecc71";
-                feedback.textContent = "¡Correcto! La flor sigue creciendo...";
-                nextBtn.style.display = "inline-block";
-                flowerBox.className = `flower-box stage-${nextStage}`;
-            } else {
-                feedback.style.color = "#e74c3c";
-                feedback.textContent = "Respuesta incorrecta, inténtalo de nuevo.";
-            }
         }
     </script>
 </body>
