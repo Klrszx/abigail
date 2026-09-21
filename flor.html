@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>La flor</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #050505;
+    color: white;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   ESCENA
+========================================================= */
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 65%,
+            #171717 0%,
+            #0b0b0b 45%,
+            #030303 100%
+        );
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+    position: absolute;
+    z-index: 20;
+
+    top: 22%;
+    left: 50%;
+
+    width: 90%;
+    max-width: 600px;
+
+    transform: translateX(-50%);
+
+    text-align: center;
+
+    transition:
+        opacity 1.3s ease,
+        transform 1.3s ease;
+}
+
+.intro.hide {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+    pointer-events: none;
+}
+
+.intro h1 {
+    margin: 0 0 15px;
+
+    font-size: clamp(32px, 7vw, 58px);
+    font-weight: normal;
+
+    letter-spacing: 5px;
+}
+
+.intro p {
+    margin: 0 0 35px;
+
+    color: #999;
+
+    font-size: 17px;
+    line-height: 1.8;
+    letter-spacing: 2px;
+}
+
+.start-button {
+    padding: 14px 36px;
+
+    border: 1px solid #777;
+    background: transparent;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 14px;
+
+    letter-spacing: 4px;
+
+    cursor: pointer;
+
+    transition:
+        background .4s ease,
+        color .4s ease,
+        border-color .4s ease;
+}
+
+.start-button:hover {
+    background: #f3c623;
+    color: #111;
+    border-color: #f3c623;
+}
+
+
+/* =========================================================
+   TIERRA
+========================================================= */
+
+.ground {
+    position: absolute;
+
+    left: 50%;
+    bottom: 0;
+
+    width: min(520px, 90%);
+    height: 80px;
+
+    transform: translateX(-50%);
+
+    opacity: 0;
+
+    transition: opacity 1.5s ease;
+}
+
+.ground.show {
+    opacity: 1;
+}
+
+.ground::before {
+    content: "";
+
+    position: absolute;
+
+    left: 50%;
+    top: 25px;
+
+    width: 420px;
+    max-width: 90%;
+
+    height: 35px;
+
+    transform: translateX(-50%);
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            #281c12 0%,
+            #17100b 55%,
+            transparent 72%
+        );
+}
+
+
+/* =========================================================
+   FLOR
+========================================================= */
+
+.flower-container {
+    position: absolute;
+
+    left: 50%;
+    bottom: 50px;
+
+    width: min(430px, 90vw);
+    height: 540px;
+
+    transform: translateX(-50%);
+}
+
+
+/* =========================================================
+   SVG
+========================================================= */
+
+.flower-svg {
+    width: 100%;
+    height: 100%;
+
+    overflow: visible;
+}
+
+
+/* =========================================================
+   TALLO
+========================================================= */
+
+.stem {
+    stroke: #477d32;
+    stroke-width: 9;
+
+    stroke-linecap: round;
+
+    stroke-dasharray: 390;
+    stroke-dashoffset: 390;
+
+    transition: stroke-dashoffset 3s ease;
+}
+
+.stem.show {
+    stroke-dashoffset: 0;
+}
+
+
+/* =========================================================
+   HOJAS
+========================================================= */
+
+.leaf {
+    opacity: 0;
+
+    transform-box: fill-box;
+    transform-origin: center;
+}
+
+.leaf-left {
+    transform: rotate(-18deg) scale(0);
+}
+
+.leaf-right {
+    transform: rotate(18deg) scale(0);
+}
+
+.leaf.show {
+    opacity: 1;
+
+    animation: leafAppear 1.4s ease-out forwards;
+}
+
+@keyframes leafAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.12);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   PÉTALOS
+========================================================= */
+
+/*
+   Cada pétalo tiene su propia posición.
+   Todos nacen alrededor del mismo centro.
+*/
+
+.petal {
+    opacity: 0;
+
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+
+    transform: scale(0.05);
+}
+
+.petal.show {
+    animation: petalOpen 1.15s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+@keyframes petalOpen {
+
+    0% {
+        opacity: 0;
+        transform: scale(0.05);
+    }
+
+    65% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   CENTRO DE LA FLOR
+========================================================= */
+
+.flower-center {
+    opacity: 0;
+
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transform: scale(0);
+}
+
+.flower-center.show {
+    animation: centerAppear 1.1s ease-out forwards;
+}
+
+@keyframes centerAppear {
+
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+
+    70% {
+        opacity: 1;
+        transform: scale(1.08);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   MOVIMIENTO FINAL
+========================================================= */
+
+.flower-container.bloomed {
+    animation: flowerSway 5s ease-in-out infinite;
+}
+
+@keyframes flowerSway {
+
+    0% {
+        transform: translateX(-50%) rotate(-1deg);
+    }
+
+    50% {
+        transform: translateX(-50%) rotate(1deg);
+    }
+
+    100% {
+        transform: translateX(-50%) rotate(-1deg);
+    }
+}
+
+
+/* =========================================================
+   MENSAJE FINAL
+========================================================= */
+
+.final-message {
+    position: absolute;
+    z-index: 15;
+
+    top: 8%;
+    left: 50%;
+
+    width: 90%;
+    max-width: 650px;
+
+    transform: translateX(-50%) translateY(15px);
+
+    text-align: center;
+
+    opacity: 0;
+
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
+}
+
+.final-message.show {
+    opacity: 1;
+
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+.final-message h2 {
+    margin: 0 0 15px;
+
+    font-size: clamp(26px, 5vw, 42px);
+    font-weight: normal;
+
+    letter-spacing: 2px;
+}
+
+.final-message p {
+    margin: 0;
+
+    color: #aaa;
+
+    font-size: 16px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   CONTADOR
+========================================================= */
+
+.counter {
+    position: absolute;
+
+    left: 50%;
+    bottom: 18px;
+
+    transform: translateX(-50%);
+
+    z-index: 20;
+
+    color: #777;
+
+    font-size: 12px;
+    letter-spacing: 4px;
+
+    opacity: 0;
+
+    transition: opacity 1s ease;
+}
+
+.counter.show {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   CELULAR
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .scene {
+        min-height: 560px;
+    }
+
+    .flower-container {
+        bottom: 35px;
+
+        width: 360px;
+        height: 460px;
+    }
+
+    .final-message {
+        top: 6%;
+    }
+
+    .final-message p {
+        font-size: 14px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="scene">
+
+
+    <!-- =====================================================
+         INTRO
+    ====================================================== -->
+
+    <div class="intro" id="intro">
+
+        <h1>Una flor</h1>
+
+        <p>
+            Cinco preguntas.<br>
+            Cinco pétalos.<br>
+            Una historia.
+        </p>
+
+        <button
+            class="start-button"
+            id="startButton"
+            type="button">
+
+            COMENZAR
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         TIERRA
+    ====================================================== -->
+
+    <div
+        class="ground"
+        id="ground">
+    </div>
+
+
+    <!-- =====================================================
+         FLOR
+    ====================================================== -->
+
+    <div
+        class="flower-container"
+        id="flowerContainer">
+
+        <svg
+            class="flower-svg"
+            viewBox="0 0 430 540"
+            xmlns="http://www.w3.org/2000/svg">
+
+
+            <!-- =================================================
+                 TALLO
+            ================================================== -->
+
+            <path
+                id="stem"
+                class="stem"
+                d="
+                    M215 505
+                    C215 450 215 390 214 330
+                    C213 285 214 245 215 210
+                "
+                fill="none"
+            />
+
+
+            <!-- =================================================
+                 HOJA IZQUIERDA
+            ================================================== -->
+
+            <path
+                id="leafLeft"
+                class="leaf leaf-left"
+                d="
+                    M214 385
+                    C178 360 135 360 105 385
+                    C138 405 180 410 214 385
+                    Z
+                "
+                fill="#3f7430"
+            />
+
+
+            <!-- =================================================
+                 HOJA DERECHA
+            ================================================== -->
+
+            <path
+                id="leafRight"
+                class="leaf leaf-right"
+                d="
+                    M215 325
+                    C250 295 294 295 325 318
+                    C293 342 251 347 215 325
+                    Z
+                "
+                fill="#4b8336"
+            />
+
+
+            <!-- =================================================
+                 PÉTALO 1 — ARRIBA
+            ================================================== -->
+
+            <path
+                id="petal1"
+                class="petal"
+                d="
+                    M215 218
+                    C180 185 178 130 215 80
+                    C252 130 250 185 215 218
+                    Z
+                "
+                fill="#f5cf27"
+            />
+
+
+            <!-- =================================================
+                 PÉTALO 2 — ARRIBA DERECHA
+            ================================================== -->
+
+            <path
+                id="petal2"
+                class="petal"
+                d="
+                    M215 218
+                    C252 178 305 166 350 190
+                    C326 236 270 252 215 218
+                    Z
+                "
+                fill="#f7d32e"
+            />
+
+
+            <!-- =================================================
+                 PÉTALO 3 — ABAJO DERECHA
+            ================================================== -->
+
+            <path
+                id="petal3"
+                class="petal"
+                d="
+                    M215 218
+                    C265 218 312 248 325 295
+                    C274 302 228 270 215 218
+                    Z
+                "
+                fill="#f4c51d"
+            />
+
+
+            <!-- =================================================
+                 PÉTALO 4 — ABAJO IZQUIERDA
+            ================================================== -->
+
+            <path
+                id="petal4"
+                class="petal"
+                d="
+                    M215 218
+                    C165 218 118 248 105 295
+                    C156 302 202 270 215 218
+                    Z
+                "
+                fill="#f4c51d"
+            />
+
+
+            <!-- =================================================
+                 PÉTALO 5 — ARRIBA IZQUIERDA
+            ================================================== -->
+
+            <path
+                id="petal5"
+                class="petal"
+                d="
+                    M215 218
+                    C178 178 125 166 80 190
+                    C104 236 160 252 215 218
+                    Z
+                "
+                fill="#f7d32e"
+            />
+
+
+            <!-- =================================================
+                 CENTRO MARRÓN
+            ================================================== -->
+
+            <circle
+                id="flowerCenter"
+                class="flower-center"
+                cx="215"
+                cy="218"
+                r="48"
+                fill="#5a350c"
+            />
+
+
+            <!-- pequeños puntos del centro -->
+
+            <g
+                id="centerDots"
+                class="flower-center"
+                fill="#2d1905">
+
+                <circle cx="195" cy="200" r="4"/>
+                <circle cx="216" cy="194" r="4"/>
+                <circle cx="235" cy="202" r="4"/>
+                <circle cx="190" cy="220" r="4"/>
+                <circle cx="210" cy="218" r="4"/>
+                <circle cx="230" cy="221" r="4"/>
+                <circle cx="200" cy="238" r="4"/>
+                <circle cx="221" cy="240" r="4"/>
+                <circle cx="239" cy="232" r="4"/>
+
+            </g>
+
+
+        </svg>
+
+    </div>
+
+
+    <!-- =====================================================
+         CONTADOR
+    ====================================================== -->
+
+    <div
+        class="counter"
+        id="counter">
+
+        PÉTALOS ·
+        <span id="counterNumber">0</span>
+        / 5
+
+    </div>
+
+
+    <!-- =====================================================
+         MENSAJE
+    ====================================================== -->
+
+    <div
+        class="final-message"
+        id="finalMessage">
+
+        <h2>Y finalmente, floreció.</h2>
+
+        <p>
+            Cinco respuestas.<br>
+            Cinco pétalos.<br>
+            Una historia que seguimos escribiendo.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =========================================================
+   ELEMENTOS
+========================================================= */
+
+const intro =
+    document.getElementById("intro");
+
+const startButton =
+    document.getElementById("startButton");
+
+const ground =
+    document.getElementById("ground");
+
+const stem =
+    document.getElementById("stem");
+
+const leafLeft =
+    document.getElementById("leafLeft");
+
+const leafRight =
+    document.getElementById("leafRight");
+
+const flowerContainer =
+    document.getElementById("flowerContainer");
+
+const flowerCenter =
+    document.getElementById("flowerCenter");
+
+const centerDots =
+    document.getElementById("centerDots");
+
+const petals = [
+
+    document.getElementById("petal1"),
+
+    document.getElementById("petal2"),
+
+    document.getElementById("petal3"),
+
+    document.getElementById("petal4"),
+
+    document.getElementById("petal5")
+
+];
+
+const counter =
+    document.getElementById("counter");
+
+const counterNumber =
+    document.getElementById("counterNumber");
+
+const finalMessage =
+    document.getElementById("finalMessage");
+
+
+/* =========================================================
+   INICIAR
+========================================================= */
+
+startButton.addEventListener("click", startAnimation);
+
+
+function startAnimation() {
+
+
+    /*
+       Desaparece la pantalla inicial
+    */
+
+    intro.classList.add("hide");
+
+
+    /*
+       Aparece la tierra
+    */
+
+    ground.classList.add("show");
+
+
+    /*
+       Aparece contador
+    */
+
+    setTimeout(() => {
+
+        counter.classList.add("show");
+
+    }, 700);
+
+
+    /*
+       CRECE EL TALLO
+    */
+
+    setTimeout(() => {
+
+        stem.classList.add("show");
+
+    }, 900);
+
+
+    /*
+       HOJA IZQUIERDA
+    */
+
+    setTimeout(() => {
+
+        leafLeft.classList.add("show");
+
+    }, 3900);
+
+
+    /*
+       HOJA DERECHA
+    */
+
+    setTimeout(() => {
+
+        leafRight.classList.add("show");
+
+    }, 4900);
+
+
+    /*
+       PÉTALO 1
+    */
+
+    setTimeout(() => {
+
+        showPetal(0);
+
+    }, 6100);
+
+
+    /*
+       PÉTALO 2
+    */
+
+    setTimeout(() => {
+
+        showPetal(1);
+
+    }, 7200);
+
+
+    /*
+       PÉTALO 3
+    */
+
+    setTimeout(() => {
+
+        showPetal(2);
+
+    }, 8300);
+
+
+    /*
+       PÉTALO 4
+    */
+
+    setTimeout(() => {
+
+        showPetal(3);
+
+    }, 9400);
+
+
+    /*
+       PÉTALO 5
+    */
+
+    setTimeout(() => {
+
+        showPetal(4);
+
+    }, 10500);
+
+
+    /*
+       CENTRO
+    */
+
+    setTimeout(() => {
+
+        flowerCenter.classList.add("show");
+
+        centerDots.classList.add("show");
+
+    }, 11800);
+
+
+    /*
+       LA FLOR TERMINÓ DE CRECER
+    */
+
+    setTimeout(() => {
+
+        flowerContainer.classList.add("bloomed");
+
+    }, 13000);
+
+
+    /*
+       MENSAJE FINAL
+    */
+
+    setTimeout(() => {
+
+        finalMessage.classList.add("show");
+
+    }, 14500);
+
+}
+
+
+/* =========================================================
+   MOSTRAR PÉTALO
+========================================================= */
+
+function showPetal(number) {
+
+    petals[number].classList.add("show");
+
+    counterNumber.textContent =
+        number + 1;
+
+}
+
+
+</script>
+
+
+</body>
+</html>
